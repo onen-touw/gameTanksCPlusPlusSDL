@@ -12,6 +12,15 @@ private:
 	};
 
 public:
+
+	CharacterTank(int i, int j): Tanks(i,j){
+		loadImages(TanksImagesPathVector);
+	}
+
+	virtual ~CharacterTank() override {
+
+	}
+
 	virtual void action(SDL_Event event = {}) override {
 		if (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_UP)
 		{
@@ -69,14 +78,12 @@ public:
 				}
 			}
 		}
+		else if (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_SPACE)
+		{
+			isBullet = true;
+		}
 	}
 
-	CharacterTank(int i, int j): Tanks(i,j){
-		loadImages(TanksImagesPathVector);
-	}
-	virtual ~CharacterTank() override {
-
-	}
 
 
 

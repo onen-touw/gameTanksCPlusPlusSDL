@@ -14,7 +14,7 @@ public:
 
 	bullet()
 	{
-			
+		
 	}
 	~bullet()
 	{
@@ -62,7 +62,7 @@ public:
 		return true;
 	}
 
-	void blit(SDL_Surface* surface) override {
+	virtual void blit(SDL_Surface* surface) override {
 			
 	}
 
