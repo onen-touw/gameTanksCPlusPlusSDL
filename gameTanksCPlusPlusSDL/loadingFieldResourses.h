@@ -22,11 +22,13 @@ public:
 
 	///example path: lvl1.txt
 	void openMap(std::string path, std::vector<std::vector<cell>>& V) {
-		std::cout << "file::file\n";
+		
 		std::ifstream file((this->saveFolder + path).c_str());
 		if (file.is_open())
 		{
+#ifdef DEBUG
 			std::cout << "file::open\n";
+#endif // DEBUG
 			std::string tempStr = "";
 
 			int l = 0, m = 0, k = 0;
@@ -56,12 +58,14 @@ public:
 			tempStr.clear();
 			file.close();
 		}
-#ifdef DEBUG
 		else
 		{
+			errors::errorStatus = ErrorsCodes::MAP_LOADING_ERROR;
+
+#ifdef DEBUG
 			std::cout << "loadingFieldResourses::openMap::loadingError file was't open\n";
-		}
 #endif // DEBUG
+		}
 
 }
 

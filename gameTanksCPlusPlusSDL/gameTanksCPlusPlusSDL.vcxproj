@@ -133,8 +133,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="botTT.cpp" />
+    <ClCompile Include="bullet.cpp" />
     <ClCompile Include="Button.cpp" />
     <ClCompile Include="CharacterTank.cpp" />
+    <ClCompile Include="ErrorNS.cpp" />
     <ClCompile Include="Field.cpp" />
     <ClCompile Include="Gameplay.cpp" />
     <ClCompile Include="globals.cpp" />
@@ -147,8 +150,11 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="baseGameClass.h" />
+    <ClInclude Include="botTT.h" />
+    <ClInclude Include="bullet.h" />
     <ClInclude Include="Button.h" />
     <ClInclude Include="CharacterTank.h" />
+    <ClInclude Include="ErrorNS.h" />
     <ClInclude Include="Field.h" />
     <ClInclude Include="Gameplay.h" />
     <ClInclude Include="globals.h" />
@@ -157,6 +163,23 @@
     <ClInclude Include="Menu.h" />
     <ClInclude Include="Object.h" />
     <ClInclude Include="Tanks.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="image\field\emptyCell.png" />
+    <Image Include="image\field\hardWall.png" />
+    <Image Include="image\field\wall.png" />
+    <Image Include="image\tank\botLT\down.png" />
+    <Image Include="image\tank\botLT\left.png" />
+    <Image Include="image\tank\botLT\right.png" />
+    <Image Include="image\tank\botLT\up.png" />
+    <Image Include="image\tank\botTT\down.png" />
+    <Image Include="image\tank\botTT\left.png" />
+    <Image Include="image\tank\botTT\right.png" />
+    <Image Include="image\tank\botTT\up.png" />
+    <Image Include="image\tank\character\down.png" />
+    <Image Include="image\tank\character\left.png" />
+    <Image Include="image\tank\character\right.png" />
+    <Image Include="image\tank\character\up.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

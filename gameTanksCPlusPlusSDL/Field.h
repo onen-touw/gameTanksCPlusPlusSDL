@@ -8,16 +8,22 @@ class Field : public Object, private loadingFieldResourses
 {
 private:
 	std::vector<std::vector<cell>>field;
+	std::vector<imagePath>fieldImagesPathVector = {
+		{"./image/field/emptyCell.png", cellObjects::Empty},
+		{"./image/field/wall.png", cellObjects::Wall},
+		{"./image/field/hardWall.png", cellObjects::HardWall},
+	};
+
 
 private:
-	std::vector<std::vector<cell>>& getFieldLink() { return field; }
-
 	void fDebug() {
 		for (size_t i = 0; i < field.size(); ++i)
 		{
 			for (size_t j = 0; j < field[i].size(); ++j)
 			{
-				std::cout << static_cast<uint16_t> (field[i][j].obj) << " ";
+				//std::cout << static_cast<uint16_t> (field[i][j].obj) << " ";
+				std::cout << "(" << static_cast<uint16_t>(field[i][j].x)
+					<< " " << static_cast<uint16_t>(field[i][j].y) << ") ";
 			}
 			std::cout << "\n";
 		}
@@ -25,12 +31,6 @@ private:
 
 public:
 	Field() {
-
-#ifdef DEBUG
-		std::cout << "Field::constructor\n";
-		
-#endif // DEBUG
-
 		field.resize(config::cellsHCount);
 		for (size_t i = 0; i < field.size(); ++i)
 		{
@@ -48,10 +48,13 @@ public:
 			y += this->cellPxSize;
 			x = 0;
 		}
-		this->openMap("lvl1.txt", this->getFieldLink());
+		this->openMap("lvl1.txt", field);
+		this->loadImages(this->fieldImagesPathVector);
 
 #ifdef DEBUG
+		std::cout << "Field::constructor\n";
 		this->fDebug();
+		this->logOut();
 #endif // DEBUG
 	}
 
@@ -62,20 +65,33 @@ public:
 #endif // DEBUG
 	}
 
-protected:
-	void blitCell(int x, int y, SDL_Surface* img) {
-		SDL_Rect rc = { x, y, this->cellPxSize,this->cellPxSize, };
-		//SDL_BlitScaled(img, NULL, Surface, &rc);
-	}
 
 public:
-	virtual void blit() {
+	virtual void blit(SDL_Surface* surface) final {
+		SDL_Rect rc = {};
+		cell tmp = {};
+
 		for (size_t i = 0; i < field.size(); ++i)
 		{
 			for (size_t j = 0; j < field[i].size(); ++j)
 			{
-				cell tmp = field[i][j];
-				//this->blitCell(tmp.x, tmp.y, /*img[]*/);
+				tmp = field[i][j];
+				rc = { tmp.x, tmp.y, this->cellPxSize,this->cellPxSize };
+
+				switch (tmp.obj)
+				{
+				case cellObjects::Empty:
+					SDL_BlitScaled(this->images[cellObjects::Empty], NULL, surface, &rc);
+					break;
+				case cellObjects::Wall:
+					SDL_BlitScaled(this->images[cellObjects::Wall], NULL, surface, &rc);
+					break;
+				case cellObjects::HardWall:
+					SDL_BlitScaled(this->images[cellObjects::HardWall], NULL, surface, &rc);
+					break;
+				default:
+					break;
+				}
 			}
 		}
 	}

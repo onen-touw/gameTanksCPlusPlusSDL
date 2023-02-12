@@ -17,23 +17,24 @@ private:
 		if (flower == nullptr) {
 			std::cout << "Can't load: " << IMG_GetError() << std::endl;
 			success = false;
+			errors::errorStatus = ErrorsCodes::IMG_LOADING_ERROR;
 			return;
 		}
 
 		/// optimization imgSurface for target surface
 		/*flower = SDL_ConvertSurface(flower, gameSettings::winSetting.surface->format, NULL);
-		if (flower == nullptr) {
-			std::cout << "Can't convert: " << SDL_GetError() << std::endl;
-			success = false;
-			return;
 		}*/
+		if (flower == nullptr) {
+			errors::errorStatus = ErrorsCodes::IMG_LOADING_ERROR;
+			success = false;
+		}
 		if (!success)
 		{
-#ifdef DEBUG
-			std::cout << "loadingResourses::LoadingImageError:: id# "<< enumName << "\n";
-			system("pause");
-#endif // DEBUG
-
+			#ifdef DEBUG
+				std::cout << "loadingResourses::LoadingImageError:: id# "<< enumName << "\n";
+				system("pause");
+			#endif // DEBUG
+			return;
 		}
 		images[enumName] = flower;
 		return;
@@ -49,6 +50,7 @@ public:
 #ifdef DEBUG
 		std::cout << "loadingImages::deconstructor\n";
 #endif // DEBUG
+
 		if (this->images.size() > 0)
 		{
 			for (int i = 0; i < this->images.size(); i++)
@@ -69,7 +71,7 @@ public:
 
 		for (int i = 0; i < this->images.size(); i++)
 		{
-			std::cout << vPaths[i].path << "<< loading #" << i << "\n";
+			//std::cout << vPaths[i].path << "<< loading #" << i << "\n";
 			this->load(vPaths[i].path, vPaths[i].id);
 		}
 	}
@@ -77,9 +79,11 @@ public:
 	SDL_Surface* loadOneImg(std::string path) {
 		SDL_Surface* flower = IMG_Load(path.c_str());
 		if (flower == nullptr) {
+			errors::errorStatus = ErrorsCodes::IMG_LOADING_ERROR;
+#ifdef DEBUG
 			std::cout << "Can't load: " << IMG_GetError() << std::endl;
 			system("pause");
-			exit(-2);
+#endif // DEBUG
 		}
 		return flower;
 	}
