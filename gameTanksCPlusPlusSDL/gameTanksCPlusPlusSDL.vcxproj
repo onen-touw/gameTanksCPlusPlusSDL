@@ -176,6 +176,10 @@
     <Image Include="image\tank\botTT\left.png" />
     <Image Include="image\tank\botTT\right.png" />
     <Image Include="image\tank\botTT\up.png" />
+    <Image Include="image\tank\bullets\down.png" />
+    <Image Include="image\tank\bullets\left.png" />
+    <Image Include="image\tank\bullets\right.png" />
+    <Image Include="image\tank\bullets\up.png" />
     <Image Include="image\tank\character\down.png" />
     <Image Include="image\tank\character\left.png" />
     <Image Include="image\tank\character\right.png" />

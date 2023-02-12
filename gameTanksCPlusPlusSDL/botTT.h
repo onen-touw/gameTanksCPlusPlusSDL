@@ -1,5 +1,7 @@
 #pragma once
+
 #include "Tanks.h"
+
 class botTT : public Tanks
 {
 private:
@@ -17,10 +19,10 @@ public:
 		/// main
 		//this->dirct = direction::LEFT;
 		///temp
-		this->dirct = direction::UP;
-
+		dirct = direction::UP;
 
 		loadImages(TanksImagesPathVector);
+
 #ifdef DEBUG
 		std::cout << "botTT::constructor\n";
 #endif // DEBUG
@@ -33,13 +35,16 @@ public:
 #endif // DEBUG
 	}
 
-	virtual void action(SDL_Event event = {}) override {
+	virtual void action(std::vector<std::vector<cell>> V, SDL_Event event = {}) override {
 		/// AI TTbot 
 		if (this->posInFldI > 0)
 		{
 			if (this->dirct != UP)
 			{
 				this->dirct = UP;
+			}
+			else
+			{
 				--this->posInFldI;
 			}
 		}

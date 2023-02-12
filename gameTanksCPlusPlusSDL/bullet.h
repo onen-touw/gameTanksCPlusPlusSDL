@@ -1,27 +1,39 @@
 #pragma once
 
 #include"Object.h"
+#include"loadingImages.h"
 
-class bullet : public Object
+class bullet : public Object, private loadingImages
 {
 
 private:
 	uint8_t speed = config::bulletSpeed;
 	direction dirct = direction::UP;
-	uint8_t x = 0, y = 0;
+	uint16_t x = 0, y = 0;
+
+	uint8_t bXSize = 10;			///px 
+	uint8_t bYSize = 20;			///px 
+
+	std::vector<imagePath>bulletImagesPathVector = {			/// перенести куда нить
+		{"./image/tank/bullets/up.png", direction::UP},
+		{"./image/tank/bullets/right.png", direction::RIGHT},
+		{"./image/tank/bullets/down.png", direction::DOWN},
+		{"./image/tank/bullets/left.png", direction::LEFT},
+	};
 
 public:
 
-	bullet()
+	bullet(bulletStruct bs): dirct(bs.direct), x(bs.x), y(bs.y)
 	{
-		
+		this->loadImages()
 	}
 	~bullet()
 	{
 
 	}
 
-	bool bulletTransmit(direction dirct, uint8_t x, uint8_t y) {
+	/// return true if the bullet died
+	bool bulletTransmit() {
 		switch (dirct)
 		{
 		case UP:
@@ -63,7 +75,16 @@ public:
 	}
 
 	virtual void blit(SDL_Surface* surface) override {
-			
+		SDL_Rect rc = {};
+		if (dirct == UP || dirct == DOWN)
+		{
+			rc = { x - bXSize / 2, y - bYSize / 2, bXSize, bYSize };
+		}
+		else
+		{
+			rc = { x - bYSize / 2, y - bXSize / 2, bYSize, bXSize };
+		}
+		SDL_BlitScaled(images[dirct], NULL, surface, &rc);
 	}
 
 };

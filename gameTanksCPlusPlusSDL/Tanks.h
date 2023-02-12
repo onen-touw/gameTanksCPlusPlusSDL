@@ -1,3 +1,5 @@
+#pragma once
+
 #include"Object.h"
 #include"loadingImages.h"
 
@@ -23,15 +25,20 @@ public:
 	Tanks(uint8_t posInFldI, uint8_t posInFldJ): posInFldI(posInFldI), posInFldJ(posInFldJ){}
 	virtual ~Tanks(){}
 
-	virtual void action(SDL_Event = {}) = 0;
+	virtual void action(std::vector<std::vector<cell>> V, SDL_Event = {}) = 0;
 
-	bool getShot() {
+	bool isShot() {
 		return isBullet;
 	}
 
 	virtual void blit(SDL_Surface* surface) final {
 		SDL_Rect rc = { posInFldJ * cellPxSize , posInFldI * cellPxSize, cellPxSize, cellPxSize };
 		SDL_BlitScaled(images[dirct], NULL, surface, &rc);
+	}
+
+	bulletStruct getDataForBullet() {
+		return { static_cast<uint16_t>(posInFldJ * cellPxSize),
+			static_cast<uint16_t>(posInFldI * cellPxSize), dirct };
 	}
 
 };

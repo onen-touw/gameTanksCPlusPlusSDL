@@ -21,16 +21,22 @@ private:
 		{
 			for (size_t j = 0; j < field[i].size(); ++j)
 			{
-				//std::cout << static_cast<uint16_t> (field[i][j].obj) << " ";
-				std::cout << "(" << static_cast<uint16_t>(field[i][j].x)
-					<< " " << static_cast<uint16_t>(field[i][j].y) << ") ";
+				std::cout << static_cast<uint16_t> (field[i][j].obj) << " ";
+				/*std::cout << "(" << static_cast<uint16_t>(field[i][j].x)
+					<< " " << static_cast<uint16_t>(field[i][j].y) << ") ";*/
 			}
 			std::cout << "\n";
 		}
 	}
 
 public:
-	Field() {
+
+	std::vector<std::vector<cell>>getField() {
+		return this->field;
+	}
+
+
+	Field(std::string mapName) {
 		field.resize(config::cellsHCount);
 		for (size_t i = 0; i < field.size(); ++i)
 		{
@@ -48,7 +54,7 @@ public:
 			y += this->cellPxSize;
 			x = 0;
 		}
-		this->openMap("lvl1.txt", field);
+		this->openMap(mapName, field);
 		this->loadImages(this->fieldImagesPathVector);
 
 #ifdef DEBUG

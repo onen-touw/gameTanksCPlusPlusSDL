@@ -3,6 +3,8 @@
 #include"Field.h"
 #include"baseGameClass.h"
 #include"CharacterTank.h"
+#include"botTT.h"
+#include"bullet.h"
 
 class Gameplay : private baseGameClass
 {
@@ -11,6 +13,7 @@ private:
 	Field* field= nullptr;
 
 	std::vector<Tanks*> TanksV = {};
+	std::vector<bullet*>bullets = {};///?
 
 	bool game = true;
 	SDL_Event event = {};
@@ -18,8 +21,15 @@ private:
 public:
 	Gameplay() {
 		initModuls();
-		field = new Field();
+		field = new Field("lvl1.txt");
+
 		TanksV.push_back(new CharacterTank(5, 5));
+
+		TanksV.push_back(new botTT(24, 7));
+		TanksV.push_back(new botTT(24, 10));
+		TanksV.push_back(new botTT(24, 15));
+
+		bullets.resize(TanksV.size());
 	}
 	~Gameplay() {
 
@@ -42,18 +52,23 @@ public:
 			}
 
 			field->blit(this->surface);
-			TanksV[0]->action(this->event);
 
-			TanksV[0]->blit(this->surface);
-			/*for (int i = 0; i < obj.size(); i++)
+			for (size_t i = 0; i < TanksV.size(); ++i)
 			{
-				obj[i]->blit(this->surface);
-			}*/
+				if (TanksV[i]->isShot())
+				{
+					this->bullets[i] = new bullet(TanksV[i]->getDataForBullet());
+					std::cout << "shot\n";
+				}
+
+				TanksV[i]->action( field->getField(), this->event);
+				TanksV[i]->blit(this->surface);
+
+			}
 
 
 			SDL_UpdateWindowSurface(this->win);
-
-			SDL_Delay(1000 / 60);
+			SDL_Delay(1000 / config::FPS);
 		}
 	}
 

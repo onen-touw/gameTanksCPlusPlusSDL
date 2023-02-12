@@ -43,6 +43,9 @@
     <Filter Include="Файлы ресурсов\image\tanks\botLT">
       <UniqueIdentifier>{88cac794-6e6f-4c23-b3dd-9e30a92790bd}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Файлы ресурсов\image\tanks\bullets">
+      <UniqueIdentifier>{23b29969-b794-4d68-95f6-cf1999dd1f46}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -177,6 +180,18 @@
     </Image>
     <Image Include="image\tank\botLT\up.png">
       <Filter>Файлы ресурсов\image\tanks\botLT</Filter>
+    </Image>
+    <Image Include="image\tank\bullets\down.png">
+      <Filter>Файлы ресурсов\image\tanks\bullets</Filter>
+    </Image>
+    <Image Include="image\tank\bullets\left.png">
+      <Filter>Файлы ресурсов\image\tanks\bullets</Filter>
+    </Image>
+    <Image Include="image\tank\bullets\right.png">
+      <Filter>Файлы ресурсов\image\tanks\bullets</Filter>
+    </Image>
+    <Image Include="image\tank\bullets\up.png">
+      <Filter>Файлы ресурсов\image\tanks\bullets</Filter>
     </Image>
   </ItemGroup>
 </Project>
