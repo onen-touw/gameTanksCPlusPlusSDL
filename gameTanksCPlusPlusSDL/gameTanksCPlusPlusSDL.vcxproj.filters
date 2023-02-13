@@ -69,12 +69,6 @@
     <ClCompile Include="globals.cpp">
       <Filter>Исходные файлы\empty</Filter>
     </ClCompile>
-    <ClCompile Include="loadingFieldResourses.cpp">
-      <Filter>Исходные файлы\empty</Filter>
-    </ClCompile>
-    <ClCompile Include="loadingImages.cpp">
-      <Filter>Исходные файлы\empty</Filter>
-    </ClCompile>
     <ClCompile Include="Menu.cpp">
       <Filter>Исходные файлы\empty</Filter>
     </ClCompile>
@@ -106,12 +100,6 @@
     </ClInclude>
     <ClInclude Include="Button.h">
       <Filter>Файлы заголовков\base</Filter>
-    </ClInclude>
-    <ClInclude Include="loadingFieldResourses.h">
-      <Filter>Файлы заголовков\loading</Filter>
-    </ClInclude>
-    <ClInclude Include="loadingImages.h">
-      <Filter>Файлы заголовков\loading</Filter>
     </ClInclude>
     <ClInclude Include="CharacterTank.h">
       <Filter>Файлы заголовков\objects</Filter>

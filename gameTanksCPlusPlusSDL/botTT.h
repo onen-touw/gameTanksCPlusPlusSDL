@@ -5,23 +5,18 @@
 class botTT : public Tanks
 {
 private:
-	std::vector<imagePath>TanksImagesPathVector = {
-		{"./image/tank/botTT/up.png", direction::UP},
-		{"./image/tank/botTT/right.png", direction::RIGHT},
-		{"./image/tank/botTT/down.png", direction::DOWN},
-		{"./image/tank/botTT/left.png", direction::LEFT},
-	};
+	
 public:
 
 
-	botTT(int i, int j): Tanks(i,j){
+	botTT(int i, int j, std::vector<SDL_Surface*>vImg): Tanks(i,j, vImg){
 
 		/// main
 		//this->dirct = direction::LEFT;
 		///temp
 		dirct = direction::UP;
 
-		loadImages(TanksImagesPathVector);
+		//loadImages(TanksImagesPathVector);
 
 #ifdef DEBUG
 		std::cout << "botTT::constructor\n";

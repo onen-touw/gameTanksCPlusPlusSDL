@@ -1,12 +1,10 @@
 #pragma once
 
 #include"Object.h"
-#include"loadingImages.h"
 
-class Tanks : public Object, public loadingImages
+class Tanks : public Object
 {
 public:
-	
 
 protected:
 	direction dirct = direction::RIGHT;
@@ -21,8 +19,12 @@ protected:
 
 	uint8_t speed = config::tankSpeed;
 
+	std::vector<SDL_Surface*>images = {};
+
 public:
-	Tanks(uint8_t posInFldI, uint8_t posInFldJ): posInFldI(posInFldI), posInFldJ(posInFldJ){}
+	Tanks(uint8_t posInFldI, uint8_t posInFldJ , std::vector<SDL_Surface*>vImg)
+		: posInFldI(posInFldI), posInFldJ(posInFldJ), images(vImg){}
+
 	virtual ~Tanks(){}
 
 	virtual void action(std::vector<std::vector<cell>> V, SDL_Event = {}) = 0;

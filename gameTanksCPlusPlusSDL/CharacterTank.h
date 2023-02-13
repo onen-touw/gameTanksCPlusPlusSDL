@@ -6,17 +6,12 @@ class CharacterTank : public Tanks
 {
 
 private:
-	std::vector<imagePath>TanksImagesPathVector = {
-		{"./image/tank/character/up.png", direction::UP},
-		{"./image/tank/character/right.png", direction::RIGHT},
-		{"./image/tank/character/down.png", direction::DOWN},
-		{"./image/tank/character/left.png", direction::LEFT},
-	};
+	
 
 public:
 
-	CharacterTank(int i, int j): Tanks(i,j){
-		loadImages(TanksImagesPathVector);
+	CharacterTank(int i, int j, std::vector<SDL_Surface*>vImg): Tanks(i,j, vImg){
+		//loadImages(TanksImagesPathVector);
 	}
 
 	virtual ~CharacterTank() override {

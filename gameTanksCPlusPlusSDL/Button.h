@@ -9,8 +9,7 @@ private:
 	SDL_Color color = { 255, 255, 255 };
 public:
 	Button(SDL_Surface* btBg, TTF_Font* font, std::vector<btnsStruct> btns): 
-		btBg(btBg), font(font), btns(btns){
-	}
+		btBg(btBg), font(font), btns(btns){}
 	~Button(){}
 
 	void blitBtn(SDL_Surface* surface) {

@@ -1,9 +1,8 @@
 #pragma once
 
 #include"Object.h"
-#include"loadingImages.h"
 
-class bullet : public Object, private loadingImages
+class bullet : public Object
 {
 
 private:
@@ -14,19 +13,12 @@ private:
 	uint8_t bXSize = 10;			///px 
 	uint8_t bYSize = 20;			///px 
 
-	std::vector<imagePath>bulletImagesPathVector = {			/// перенести куда нить
-		{"./image/tank/bullets/up.png", direction::UP},
-		{"./image/tank/bullets/right.png", direction::RIGHT},
-		{"./image/tank/bullets/down.png", direction::DOWN},
-		{"./image/tank/bullets/left.png", direction::LEFT},
-	};
-
+	std::vector<SDL_Surface*>images = {};
+	
 public:
 
-	bullet(bulletStruct bs): dirct(bs.direct), x(bs.x), y(bs.y)
-	{
-		this->loadImages()
-	}
+	bullet(bulletStruct bs, std::vector<SDL_Surface*>vImg)
+		: dirct(bs.direct), x(bs.x), y(bs.y), images(vImg){}
 	~bullet()
 	{
 

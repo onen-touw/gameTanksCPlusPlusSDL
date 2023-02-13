@@ -1,18 +1,15 @@
 #pragma once
 
 #include"Object.h"
-#include"loadingFieldResourses.h"
+#include<fstream>
 
 
-class Field : public Object, private loadingFieldResourses
+class Field : public Object
 {
 private:
 	std::vector<std::vector<cell>>field;
-	std::vector<imagePath>fieldImagesPathVector = {
-		{"./image/field/emptyCell.png", cellObjects::Empty},
-		{"./image/field/wall.png", cellObjects::Wall},
-		{"./image/field/hardWall.png", cellObjects::HardWall},
-	};
+	std::vector<SDL_Surface*>images;
+	std::string saveFolder = "save/";
 
 
 private:
@@ -29,6 +26,56 @@ private:
 		}
 	}
 
+	///example path: lvl1.txt
+	void openMap(std::string path, std::vector<std::vector<cell>>& V) {
+
+		std::ifstream file((this->saveFolder + path).c_str());
+		if (file.is_open())
+		{
+	#ifdef DEBUG
+			std::cout << "file::open\n";
+	#endif // DEBUG
+			std::string tempStr = "";
+
+			int l = 0, m = 0, k = 0;
+			while (std::getline(file, tempStr))
+			{
+				k = 0;
+				m = 0;
+				while (tempStr[k] != '\0')
+				{
+					if (tempStr[k] == '/')
+					{
+						k++;
+					}
+					if (tempStr[k] == '\0')
+					{
+						break;
+					}
+
+					V[l][m].obj = static_cast<uint8_t>(tempStr[k] - '0');
+					V[l][m].objHp = static_cast<uint8_t>(tempStr[++k] - '0');
+					m++;
+					k++;
+				}
+				l++;
+
+			}
+			tempStr.clear();
+			file.close();
+		}
+		else
+		{
+			errors::errorStatus = ErrorsCodes::MAP_LOADING_ERROR;
+
+	#ifdef DEBUG
+			std::cout << "loadingFieldResourses::openMap::loadingError file was't open\n";
+	#endif // DEBUG
+		}
+
+	}
+
+
 public:
 
 	std::vector<std::vector<cell>>getField() {
@@ -36,7 +83,7 @@ public:
 	}
 
 
-	Field(std::string mapName) {
+	Field(std::string mapName, std::vector< SDL_Surface*> vImg) : images(vImg){
 		field.resize(config::cellsHCount);
 		for (size_t i = 0; i < field.size(); ++i)
 		{
@@ -55,12 +102,11 @@ public:
 			x = 0;
 		}
 		this->openMap(mapName, field);
-		this->loadImages(this->fieldImagesPathVector);
+		//this->loadImages(this->fieldImagesPathVector);
 
 #ifdef DEBUG
 		std::cout << "Field::constructor\n";
 		this->fDebug();
-		this->logOut();
 #endif // DEBUG
 	}
 

@@ -35,8 +35,8 @@ struct cell
 
 struct bulletStruct
 {
-	uint16_t x=0;
-	uint16_t y=0;
+	uint16_t x = 0;
+	uint16_t y = 0;
 	direction direct;
 };
 
@@ -69,11 +69,7 @@ public:
 	static constexpr uint8_t bulletSpeed = 30;										///px
 
 	static constexpr uint8_t FPS = 60;												///px
-
+	
 	static constexpr const char* winTitle = "TanksGame";							///windowName
-
-
-	config(){}
-	~config(){}
 
 };
