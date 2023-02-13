@@ -5,14 +5,20 @@
 #define DEBUG
 #endif // !DEBUG
 
-
-
-#include<iostream>
+#include "ErrorNS.h"
 #include<SDL.h>
 #include<SDL_image.h>
 #include<SDL_ttf.h>
 #include<vector>
 #include<string>
+
+enum direction : uint8_t
+{
+	UP,
+	LEFT,
+	DOWN,
+	RIGHT
+};
 
 enum cellObjects: uint8_t
 {
@@ -21,17 +27,31 @@ enum cellObjects: uint8_t
 
 struct cell
 {
-	uint8_t x = 0;
-	uint8_t y = 0;
+	uint16_t x = 0;
+	uint16_t y = 0;
 	uint8_t objHp = 0;
 	uint8_t obj = cellObjects::Empty;
+};
+
+struct bulletStruct
+{
+	uint16_t x = 0;
+	uint16_t y = 0;
+	direction direct;
 };
 
 struct imagePath
 {
 	std::string path;
-	short int id;
+	uint8_t id;
 };
+
+struct btnsStruct
+{
+	std::string text = "";
+	SDL_Rect rect = { 0,0,0,0 };
+};
+
 
 class config
 {
@@ -45,18 +65,11 @@ public:
 	static constexpr uint16_t winHeight = cellsHCount * cellSize;					///px
 	static constexpr uint16_t winWidth = cellsWCount * cellSize + rightBlockW;		///px
 
-	/*static constexpr const char* imgPath = "./";
-	static constexpr const char* fontPath = "./";*/
+	static constexpr uint8_t tankSpeed = 10;										///px
+	static constexpr uint8_t bulletSpeed = 30;										///px
 
-	static constexpr const char* winTitle = "TanksGame";
-
-	std::vector<imagePath>fieldImagesPathVector = {
-		{"./image/field/emptyCell.png", cellObjects::Empty},
-		{"./image/field/wall.png", cellObjects::Wall},
-		{"./image/field/hardWall.png", cellObjects::HardWall},
-	};
-
-	config() {}
-	~config(){}
+	static constexpr uint8_t FPS = 60;												///px
+	
+	static constexpr const char* winTitle = "TanksGame";							///windowName
 
 };

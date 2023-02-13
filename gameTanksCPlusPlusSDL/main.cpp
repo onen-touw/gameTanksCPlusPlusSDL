@@ -4,5 +4,7 @@ int main(int argc, char* argv[]) {
 
 	Gameplay gm;
 
-	return 0;
+	gm.loop();
+
+	return errors::errorStatus;
 }

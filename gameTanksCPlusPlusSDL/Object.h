@@ -21,7 +21,7 @@ public:
 
 	}
 
-	virtual void blit() = 0;
+	virtual void blit(SDL_Surface*) = 0;
 };
 
 

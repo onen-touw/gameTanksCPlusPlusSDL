@@ -13,75 +13,173 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Исходные файлы\empty">
+      <UniqueIdentifier>{a6771d63-9060-4d1c-bb75-69dedc420985}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Файлы ресурсов\image">
+      <UniqueIdentifier>{a77720d6-89f4-424e-91f8-3b7fffb3900c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Файлы ресурсов\image\field">
+      <UniqueIdentifier>{c6efedcc-86a8-4ef8-97f9-ea6b3c7a54b3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Файлы заголовков\base">
+      <UniqueIdentifier>{dd43ae0e-addd-4bb4-96d7-3fb43bcc092b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Файлы заголовков\loading">
+      <UniqueIdentifier>{ab597a47-afc7-45c5-8102-8703490e83c3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Файлы заголовков\objects">
+      <UniqueIdentifier>{5e7b5f00-d2a6-4769-b1b0-5474606823aa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Файлы ресурсов\image\tanks">
+      <UniqueIdentifier>{d531dd04-7ed4-41f2-b693-75008e6c7995}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Файлы ресурсов\image\tanks\character">
+      <UniqueIdentifier>{de1a1d10-432a-4f22-a785-1ca5ff82b940}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Файлы ресурсов\image\tanks\botTT">
+      <UniqueIdentifier>{a746f3d9-1714-4817-82f5-c6ff79f67aa5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Файлы ресурсов\image\tanks\botLT">
+      <UniqueIdentifier>{88cac794-6e6f-4c23-b3dd-9e30a92790bd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Файлы ресурсов\image\tanks\bullets">
+      <UniqueIdentifier>{23b29969-b794-4d68-95f6-cf1999dd1f46}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Button.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="CharacterTank.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="Field.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="Menu.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="Object.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
     <ClCompile Include="main.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="Tanks.cpp">
+    <ClCompile Include="ErrorNS.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="globals.cpp">
-      <Filter>Исходные файлы</Filter>
+    <ClCompile Include="CharacterTank.cpp">
+      <Filter>Исходные файлы\empty</Filter>
+    </ClCompile>
+    <ClCompile Include="Button.cpp">
+      <Filter>Исходные файлы\empty</Filter>
+    </ClCompile>
+    <ClCompile Include="Field.cpp">
+      <Filter>Исходные файлы\empty</Filter>
     </ClCompile>
     <ClCompile Include="Gameplay.cpp">
+      <Filter>Исходные файлы\empty</Filter>
+    </ClCompile>
+    <ClCompile Include="globals.cpp">
+      <Filter>Исходные файлы\empty</Filter>
+    </ClCompile>
+    <ClCompile Include="Menu.cpp">
+      <Filter>Исходные файлы\empty</Filter>
+    </ClCompile>
+    <ClCompile Include="Object.cpp">
+      <Filter>Исходные файлы\empty</Filter>
+    </ClCompile>
+    <ClCompile Include="Tanks.cpp">
+      <Filter>Исходные файлы\empty</Filter>
+    </ClCompile>
+    <ClCompile Include="botTT.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="loadingImages.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="loadingFieldResourses.cpp">
+    <ClCompile Include="bullet.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Button.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="CharacterTank.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="Field.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="Menu.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="Object.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="Tanks.h">
-      <Filter>Файлы заголовков</Filter>
+    <ClInclude Include="baseGameClass.h">
+      <Filter>Файлы заголовков\base</Filter>
     </ClInclude>
     <ClInclude Include="globals.h">
-      <Filter>Файлы заголовков</Filter>
+      <Filter>Файлы заголовков\base</Filter>
+    </ClInclude>
+    <ClInclude Include="Object.h">
+      <Filter>Файлы заголовков\base</Filter>
+    </ClInclude>
+    <ClInclude Include="ErrorNS.h">
+      <Filter>Файлы заголовков\base</Filter>
+    </ClInclude>
+    <ClInclude Include="Button.h">
+      <Filter>Файлы заголовков\base</Filter>
+    </ClInclude>
+    <ClInclude Include="CharacterTank.h">
+      <Filter>Файлы заголовков\objects</Filter>
+    </ClInclude>
+    <ClInclude Include="Field.h">
+      <Filter>Файлы заголовков\objects</Filter>
     </ClInclude>
     <ClInclude Include="Gameplay.h">
+      <Filter>Файлы заголовков\objects</Filter>
+    </ClInclude>
+    <ClInclude Include="Menu.h">
+      <Filter>Файлы заголовков\objects</Filter>
+    </ClInclude>
+    <ClInclude Include="Tanks.h">
+      <Filter>Файлы заголовков\objects</Filter>
+    </ClInclude>
+    <ClInclude Include="botTT.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="baseGameClass.h">
+    <ClInclude Include="bullet.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="loadingImages.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="loadingFieldResourses.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="image\field\emptyCell.png">
+      <Filter>Файлы ресурсов\image\field</Filter>
+    </Image>
+    <Image Include="image\field\hardWall.png">
+      <Filter>Файлы ресурсов\image\field</Filter>
+    </Image>
+    <Image Include="image\field\wall.png">
+      <Filter>Файлы ресурсов\image\field</Filter>
+    </Image>
+    <Image Include="image\tank\character\down.png">
+      <Filter>Файлы ресурсов\image\tanks\character</Filter>
+    </Image>
+    <Image Include="image\tank\character\left.png">
+      <Filter>Файлы ресурсов\image\tanks\character</Filter>
+    </Image>
+    <Image Include="image\tank\character\right.png">
+      <Filter>Файлы ресурсов\image\tanks\character</Filter>
+    </Image>
+    <Image Include="image\tank\character\up.png">
+      <Filter>Файлы ресурсов\image\tanks\character</Filter>
+    </Image>
+    <Image Include="image\tank\botTT\down.png">
+      <Filter>Файлы ресурсов\image\tanks\botTT</Filter>
+    </Image>
+    <Image Include="image\tank\botTT\left.png">
+      <Filter>Файлы ресурсов\image\tanks\botTT</Filter>
+    </Image>
+    <Image Include="image\tank\botTT\right.png">
+      <Filter>Файлы ресурсов\image\tanks\botTT</Filter>
+    </Image>
+    <Image Include="image\tank\botTT\up.png">
+      <Filter>Файлы ресурсов\image\tanks\botTT</Filter>
+    </Image>
+    <Image Include="image\tank\botLT\down.png">
+      <Filter>Файлы ресурсов\image\tanks\botLT</Filter>
+    </Image>
+    <Image Include="image\tank\botLT\left.png">
+      <Filter>Файлы ресурсов\image\tanks\botLT</Filter>
+    </Image>
+    <Image Include="image\tank\botLT\right.png">
+      <Filter>Файлы ресурсов\image\tanks\botLT</Filter>
+    </Image>
+    <Image Include="image\tank\botLT\up.png">
+      <Filter>Файлы ресурсов\image\tanks\botLT</Filter>
+    </Image>
+    <Image Include="image\tank\bullets\down.png">
+      <Filter>Файлы ресурсов\image\tanks\bullets</Filter>
+    </Image>
+    <Image Include="image\tank\bullets\left.png">
+      <Filter>Файлы ресурсов\image\tanks\bullets</Filter>
+    </Image>
+    <Image Include="image\tank\bullets\right.png">
+      <Filter>Файлы ресурсов\image\tanks\bullets</Filter>
+    </Image>
+    <Image Include="image\tank\bullets\up.png">
+      <Filter>Файлы ресурсов\image\tanks\bullets</Filter>
+    </Image>
   </ItemGroup>
 </Project>
