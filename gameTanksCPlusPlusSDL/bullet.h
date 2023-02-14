@@ -1,34 +1,47 @@
 #pragma once
 
-#include"Object.h"
+#include"globals.h"
 
-class bullet : public Object
+class bullet 
 {
 
 private:
 	uint8_t speed = config::bulletSpeed;
-	direction dirct = direction::UP;
-	uint16_t x = 0, y = 0;
 
-	uint8_t bXSize = 10;			///px 
-	uint8_t bYSize = 20;			///px 
+	int16_t x = 0, y = 0;
 
-	std::vector<SDL_Surface*>images = {};
+	uint8_t bXSize = 20;			///px 
+	uint8_t bYSize = 30;			///px 
 	
 public:
+	direction dirct = direction::UP;
 
-	bullet(bulletStruct bs, std::vector<SDL_Surface*>vImg)
-		: dirct(bs.direct), x(bs.x), y(bs.y), images(vImg){}
-	~bullet()
+	bullet(direction dirct, uint16_t x,uint16_t y)
+		: dirct(dirct)/*, x(x ), y(y + bYSize/2)*/{
+		this->x = x + config::cellSize/2;
+		this->y = y + config::cellSize / 2;
+	}
+
+	~bullet ()
 	{
 
 	}
 
-	/// return true if the bullet died
+	/// return false if the bullet died
+	///TODO: check for walls and other tanks
 	bool bulletTransmit() {
+		std::cout << x << " " << y << "\n";
 		switch (dirct)
 		{
 		case UP:
+			if (y > 0)
+			{
+				y -= speed;
+			}
+			else
+				return false;
+			break;
+		case LEFT:
 			if (x > 0)
 			{
 				x -= speed;
@@ -36,24 +49,16 @@ public:
 			else
 				return false;
 			break;
-		case LEFT:
-			if (y>0)
-			{
-				y -= speed;
-			}
-			else
-				return false;
-			break;
 		case DOWN:
-			if (x < config::winHeight)
+			if (y < config::winHeight)
 			{
-				x += speed;
+				y += speed;
 			}
 			else
 				return false;
 			break;
 		case RIGHT:
-			if (y < config::winWidth - config::rightBlockW)
+			if (x < config::winWidth - config::rightBlockW)
 			{
 				x += speed;
 			}
@@ -66,7 +71,7 @@ public:
 		return true;
 	}
 
-	virtual void blit(SDL_Surface* surface) override {
+	 void blit(SDL_Surface* surface, SDL_Surface* image) {
 		SDL_Rect rc = {};
 		if (dirct == UP || dirct == DOWN)
 		{
@@ -76,7 +81,7 @@ public:
 		{
 			rc = { x - bYSize / 2, y - bXSize / 2, bYSize, bXSize };
 		}
-		SDL_BlitScaled(images[dirct], NULL, surface, &rc);
+		SDL_BlitScaled(image, NULL, surface, &rc);
 	}
 
 };

@@ -10,7 +10,7 @@ private:
 
 public:
 
-	CharacterTank(int i, int j, std::vector<SDL_Surface*>vImg): Tanks(i,j, vImg){
+	CharacterTank(int i, int j, std::vector<SDL_Surface*>vImg, std::vector<SDL_Surface*>bImg): Tanks(i,j, vImg, bImg){
 		//loadImages(TanksImagesPathVector);
 	}
 
@@ -65,7 +65,11 @@ public:
 		}
 		else if (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_SPACE)
 		{
-			if (!isBullet) isBullet = true;
+			if (!isShot())
+			{
+				tBullet = new bullet(dirct, posInFldJ * cellPxSize, posInFldI * cellPxSize);
+				std::cout << "bullet is flying\n";
+			}
 		}
 	}
 

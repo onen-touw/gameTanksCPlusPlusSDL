@@ -25,9 +25,6 @@
     <Filter Include="Файлы заголовков\base">
       <UniqueIdentifier>{dd43ae0e-addd-4bb4-96d7-3fb43bcc092b}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Файлы заголовков\loading">
-      <UniqueIdentifier>{ab597a47-afc7-45c5-8102-8703490e83c3}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Файлы заголовков\objects">
       <UniqueIdentifier>{5e7b5f00-d2a6-4769-b1b0-5474606823aa}</UniqueIdentifier>
     </Filter>
