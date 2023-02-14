@@ -43,6 +43,12 @@
     <Filter Include="Файлы ресурсов\image\tanks\bullets">
       <UniqueIdentifier>{23b29969-b794-4d68-95f6-cf1999dd1f46}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Файлы ресурсов\font">
+      <UniqueIdentifier>{f5b5cb96-696b-44ae-97c8-1941dba61861}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Файлы ресурсов\image\menu">
+      <UniqueIdentifier>{62c5d042-f249-4193-8ac7-fb5a141bb8b7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -52,9 +58,6 @@
       <Filter>Исходные файлы</Filter>
     </ClCompile>
     <ClCompile Include="CharacterTank.cpp">
-      <Filter>Исходные файлы\empty</Filter>
-    </ClCompile>
-    <ClCompile Include="Button.cpp">
       <Filter>Исходные файлы\empty</Filter>
     </ClCompile>
     <ClCompile Include="Field.cpp">
@@ -81,6 +84,12 @@
     <ClCompile Include="bullet.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
+    <ClCompile Include="BotLT.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="StartWindow.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="baseGameClass.h">
@@ -93,9 +102,6 @@
       <Filter>Файлы заголовков\base</Filter>
     </ClInclude>
     <ClInclude Include="ErrorNS.h">
-      <Filter>Файлы заголовков\base</Filter>
-    </ClInclude>
-    <ClInclude Include="Button.h">
       <Filter>Файлы заголовков\base</Filter>
     </ClInclude>
     <ClInclude Include="CharacterTank.h">
@@ -117,6 +123,12 @@
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
     <ClInclude Include="bullet.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="BotLT.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="StartWindow.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
   </ItemGroup>
@@ -178,5 +190,10 @@
     <Image Include="image\tank\bullets\up.png">
       <Filter>Файлы ресурсов\image\tanks\bullets</Filter>
     </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <Font Include="font\courier.ttf">
+      <Filter>Файлы ресурсов\font</Filter>
+    </Font>
   </ItemGroup>
 </Project>

@@ -5,9 +5,6 @@
 class CharacterTank : public Tanks
 {
 
-private:
-	
-
 public:
 
 	CharacterTank(uint8_t i, uint8_t j, std::vector<SDL_Surface*>vImg, std::vector<SDL_Surface*>bImg): Tanks(i,j, vImg, bImg){}
