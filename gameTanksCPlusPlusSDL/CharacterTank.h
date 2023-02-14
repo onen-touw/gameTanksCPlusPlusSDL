@@ -10,7 +10,7 @@ private:
 
 public:
 
-	CharacterTank(int i, int j, std::vector<SDL_Surface*>vImg, std::vector<SDL_Surface*>bImg): Tanks(i,j, vImg, bImg){
+	CharacterTank(uint8_t i, uint8_t j, std::vector<SDL_Surface*>vImg, std::vector<SDL_Surface*>bImg): Tanks(i,j, vImg, bImg){
 		//loadImages(TanksImagesPathVector);
 	}
 

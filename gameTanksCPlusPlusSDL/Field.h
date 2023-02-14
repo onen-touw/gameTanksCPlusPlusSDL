@@ -86,7 +86,7 @@ public:
 		{
 			field[i].resize(config::cellsWCount);
 		}
-		int x = 0, y = 0;
+		uint16_t x = 0, y = 0;
 		for (size_t i = 0; i < field.size(); ++i)
 		{
 			for (size_t j = 0; j < field[i].size(); ++j)
