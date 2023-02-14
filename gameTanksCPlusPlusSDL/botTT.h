@@ -9,7 +9,7 @@ private:
 public:
 
 
-	botTT(int i, int j, std::vector<SDL_Surface*>vImg): Tanks(i,j, vImg){
+	botTT(int i, int j, std::vector<SDL_Surface*>vImg, std::vector<SDL_Surface*>bImg): Tanks(i,j, vImg, bImg){
 
 		/// main
 		//this->dirct = direction::LEFT;

@@ -75,13 +75,10 @@ private:
 
 	}
 
-
 public:
-
 	std::vector<std::vector<cell>>getField() {
 		return this->field;
 	}
-
 
 	Field(std::string mapName, std::vector< SDL_Surface*> vImg) : images(vImg){
 		field.resize(config::cellsHCount);
@@ -111,7 +108,7 @@ public:
 	}
 
 
-	~Field() {
+	~Field() override {
 #ifdef DEBUG
 		std::cout << "Field::deconstructor\n";
 #endif // DEBUG
