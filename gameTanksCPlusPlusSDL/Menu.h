@@ -52,9 +52,9 @@ public:
 		SDL_FreeSurface(tempSurf);
 	}
 
-	void blitBtns() {
-		
-	}
+	//void blitBtns() {
+	//	
+	//}
 
 	int8_t checkButtonClick(int x, int y) {
 		if (!this->btns.empty())

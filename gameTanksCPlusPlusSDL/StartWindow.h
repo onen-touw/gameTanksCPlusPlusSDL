@@ -13,9 +13,9 @@ public:
 		this->font = f;
 		this->btBg = V[menuObjects::BUTTON_BG];
 		this->winBg = V[menuObjects::WIN_BG];
-		this->btns = {
+		/*this->btns = {
 			{"»√–¿“‹", {config::winWidth / 2, 80, 150, 60}},
-		};
+		};*/
 	}
 
 	~StartWindow()
