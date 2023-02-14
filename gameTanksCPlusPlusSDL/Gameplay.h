@@ -78,8 +78,12 @@ public:
 				TanksV[i]->action( field->getField(), this->event);
 				TanksV[i]->bulletHandler();
 			}
-			startWindow->blit(surface);
+			//startWindow->blit(surface);
 			
+			for (auto& el : sceneObject)
+			{
+				el->blit(surface);
+			}
 
 			SDL_UpdateWindowSurface(this->win);
 			SDL_Delay(1000 / config::FPS);

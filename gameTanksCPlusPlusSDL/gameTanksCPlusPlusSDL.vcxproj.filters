@@ -49,6 +49,9 @@
     <Filter Include="Файлы ресурсов\image\menu">
       <UniqueIdentifier>{62c5d042-f249-4193-8ac7-fb5a141bb8b7}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Файлы заголовков\menu">
+      <UniqueIdentifier>{22390c7b-98ba-4e7c-9bb4-99f4389f0fca}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -90,6 +93,9 @@
     <ClCompile Include="StartWindow.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
+    <ClCompile Include="menuMainWin.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="baseGameClass.h">
@@ -113,9 +119,6 @@
     <ClInclude Include="Gameplay.h">
       <Filter>Файлы заголовков\objects</Filter>
     </ClInclude>
-    <ClInclude Include="Menu.h">
-      <Filter>Файлы заголовков\objects</Filter>
-    </ClInclude>
     <ClInclude Include="Tanks.h">
       <Filter>Файлы заголовков\objects</Filter>
     </ClInclude>
@@ -129,6 +132,12 @@
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
     <ClInclude Include="StartWindow.h">
+      <Filter>Файлы заголовков\menu</Filter>
+    </ClInclude>
+    <ClInclude Include="Menu.h">
+      <Filter>Файлы заголовков\menu</Filter>
+    </ClInclude>
+    <ClInclude Include="menuMainWin.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
   </ItemGroup>

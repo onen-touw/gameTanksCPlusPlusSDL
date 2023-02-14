@@ -13,7 +13,6 @@ protected:
 	SDL_Color color = { 0, 0, 0 };
 
 	SDL_Rect menuRect = { 0, 0, config::winWidth, config::winHeight };
-private:
 
 public:
 	Menu(){
@@ -34,21 +33,16 @@ public:
 			for (auto& el : btns)
 			{
 				tmp = el;
-
 				tmp.rect.x = tmp.rect.x - tmp.rect.w / 2;
 				tmp.rect.y = tmp.rect.y - tmp.rect.h / 2;
 				SDL_BlitScaled(btBg, NULL, surface, &tmp.rect);
-				SDL_Surface* tempSurf = TTF_RenderText_Solid(this->font, tmp.text.c_str(), color);
-				SDL_Rect tempRect = { tmp.rect.x + (tmp.rect.w - tempSurf->w) / 2, tmp.rect.y +
-					(tmp.rect.h - tempSurf->h) / 2,0,0 };
-				SDL_BlitSurface(tempSurf, NULL, surface, &tempRect);
-				SDL_FreeSurface(tempSurf);
+				blitTxtRect(surface, el.text, el.rect);
 			}
 		}
 	}
 
 	
-	void blitTxtRect(SDL_Surface* surface, std::string txt,SDL_Rect rect) {
+	void blitTxtRect(SDL_Surface* surface, std::string txt, SDL_Rect rect) {
 		rect.x = rect.x - rect.w/2;
 		rect.y = rect.y - rect.h/2;
 		SDL_Surface* tempSurf = TTF_RenderText_Solid(this->font, txt.c_str(), color);
