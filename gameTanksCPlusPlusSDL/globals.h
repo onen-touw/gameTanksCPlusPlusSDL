@@ -33,6 +33,22 @@ struct imagePath
 	short int id;
 };
 
+struct point
+{
+	uint8_t p1 = 0;
+	uint8_t p2 = 0;
+};
+
+enum direction
+{
+	up,
+	right,
+	left,
+	down,
+
+	nomberOfDirections
+};
+
 class config
 {
 public:
