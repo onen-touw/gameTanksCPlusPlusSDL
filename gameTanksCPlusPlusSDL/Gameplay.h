@@ -7,7 +7,7 @@
 #include"BotLT.h"
 
 #include"StartWindow.h"
-#include "testClass.h"
+//#include "testClass.h"
 #include "aboutWin.h"
 #include "StatisticWin.h"
 
@@ -50,8 +50,8 @@ public:
 		TanksV.push_back(new BotLT(24, 25, tankLTImages, bulletImages));
 		sceneObject.push_back(TanksV[4]);
 
-		startWindow = new StartWindow( menuImages, font);
-		testCl = new /*testClass(menuImages, font)*//*StartWindow*/StatisticWin(menuImages, font);
+		//startWindow = new StartWindow( menuImages, font);
+		//testCl = new /*testClass(menuImages, font)*//*StartWindow*/StatisticWin(menuImages, font);
 
 		game = !errors::errorStatus ? true : false;
 	}
@@ -66,7 +66,7 @@ public:
 
 	void loop() {
 
-		game = !errors::errorStatus ? true : false;
+		//game = !errors::errorStatus ? true : false;
 
 		while (this->game )
 		{
@@ -84,11 +84,11 @@ public:
 				TanksV[i]->action( field->getField(), this->event);
 				TanksV[i]->bulletHandler();
 			}
-			testCl->blit(surface);
+			//testCl->blit(surface);
 			
 			for (auto& el : sceneObject)
 			{
-				//el->blit(surface);
+				el->blit(surface);
 			}
 
 			SDL_UpdateWindowSurface(this->win);
