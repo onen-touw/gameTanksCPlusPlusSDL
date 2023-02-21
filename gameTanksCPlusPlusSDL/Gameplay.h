@@ -3,11 +3,10 @@
 #include"Field.h"
 #include"baseGameClass.h"
 #include"CharacterTank.h"
-#include"botTT.h"
-#include"BotLT.h"
 
 #include"StartWindow.h"
 //#include "testClass.h"
+#include"TanksActions.h"
 #include "aboutWin.h"
 #include "StatisticWin.h"
 
@@ -33,12 +32,13 @@ public:
 
 		/// transmit in special function
 		field = new Field("lvl1.txt", fieldImages);
+		TanksV.push_back(new CharacterTank({5, 5}, TankCharacterImages, bulletImages));
+		sceneObject.push_back(TanksV[0]);
 		sceneObject.push_back(field);
 
-		TanksV.push_back(new CharacterTank(5, 5, TankCharacterImages, bulletImages));
-		sceneObject.push_back(TanksV[0]);
+		
 
-		TanksV.push_back(new botTT(24, 7, tankTTImages, bulletImages));
+		/*TanksV.push_back(new botTT(24, 7, tankTTImages, bulletImages));
 		sceneObject.push_back(TanksV[1]);
 
 		TanksV.push_back(new botTT(24, 10, tankTTImages, bulletImages));
@@ -48,7 +48,7 @@ public:
 		sceneObject.push_back(TanksV[3]);
 
 		TanksV.push_back(new BotLT(24, 25, tankLTImages, bulletImages));
-		sceneObject.push_back(TanksV[4]);
+		sceneObject.push_back(TanksV[4]);*/
 
 		//startWindow = new StartWindow( menuImages, font);
 		//testCl = new /*testClass(menuImages, font)*//*StartWindow*/StatisticWin(menuImages, font);
@@ -81,7 +81,7 @@ public:
 			/// tanks actions
 			for (size_t i = 0; i < TanksV.size(); ++i)
 			{
-				TanksV[i]->action( field->getField(), this->event);
+				//TanksV[i]->action( field->getField(), this->event);
 				TanksV[i]->bulletHandler();
 			}
 			//testCl->blit(surface);

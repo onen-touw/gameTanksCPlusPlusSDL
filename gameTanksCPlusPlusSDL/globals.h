@@ -17,7 +17,9 @@ enum direction : uint8_t
 	UP,
 	LEFT,
 	DOWN,
-	RIGHT
+	RIGHT,
+
+	DIRECTIONS_TOTAL
 };
 
 enum cellObjects: uint8_t
@@ -36,6 +38,12 @@ struct cell
 	uint16_t y = 0;
 	uint8_t objHp = 0;
 	uint8_t obj = cellObjects::Empty;
+};
+
+struct point
+{
+	uint8_t p1 = 0;
+	uint8_t p2 = 0;
 };
 
 struct bulletStruct

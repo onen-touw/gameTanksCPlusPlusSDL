@@ -154,6 +154,7 @@
     <ClCompile Include="StartWindow.cpp" />
     <ClCompile Include="StatisticWin.cpp" />
     <ClCompile Include="Tanks.cpp" />
+    <ClCompile Include="TanksActions.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="aboutWin.h" />
@@ -173,6 +174,7 @@
     <ClInclude Include="StartWindow.h" />
     <ClInclude Include="StatisticWin.h" />
     <ClInclude Include="Tanks.h" />
+    <ClInclude Include="TanksActions.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="image\field\emptyCell.png" />

@@ -7,7 +7,7 @@ class botTT : public Tanks
 public:
 
 
-	botTT(uint8_t i, uint8_t j, std::vector<SDL_Surface*>vImg, std::vector<SDL_Surface*>bImg): Tanks(i,j, vImg, bImg){
+	botTT(point pos, std::vector<SDL_Surface*>vImg, std::vector<SDL_Surface*>bImg): Tanks(pos, vImg, bImg){
 
 		/// main
 		//this->dirct = direction::LEFT;
@@ -28,7 +28,7 @@ public:
 	#endif // DEBUG
 	}
 
-	virtual void action(std::vector<std::vector<cell>> V, SDL_Event event = {}) override {
+	/*virtual void action(std::vector<std::vector<cell>> V, SDL_Event event = {}) override {
 		/// AI TTbot 
 		if (this->posInFldI > 0)
 		{
@@ -41,7 +41,7 @@ public:
 				--this->posInFldI;
 			}
 		}
-	}
+	}*/
 
 };
 

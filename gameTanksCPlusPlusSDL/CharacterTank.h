@@ -7,13 +7,13 @@ class CharacterTank : public Tanks
 
 public:
 
-	CharacterTank(uint8_t i, uint8_t j, std::vector<SDL_Surface*>vImg, std::vector<SDL_Surface*>bImg): Tanks(i,j, vImg, bImg){}
+	CharacterTank(point pos, std::vector<SDL_Surface*>vImg, std::vector<SDL_Surface*>bImg): Tanks(pos, vImg, bImg){}
 
 	virtual ~CharacterTank() override {
 
 	}
 
-	virtual void action(std::vector<std::vector<cell>> V, SDL_Event event = {}) override {
+	void action(std::vector<std::vector<cell>> V, SDL_Event event) {
 		if (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_UP)
 		{
 			if (this->dirct!=UP) dirct = UP;
