@@ -1,3 +1,6 @@
+#pragma once
+
+
 #include"Object.h"
 
 
@@ -10,9 +13,28 @@ protected:
 	SDL_Surface* btBg = nullptr;
 	TTF_Font* font = nullptr;
 
-	SDL_Color color = { 0, 0, 0 };
+	std::string text = "";
+
+	SDL_Color color = { 0,0, 0 };
 
 	SDL_Rect menuRect = { 0, 0, config::winWidth, config::winHeight };
+
+
+protected:
+	int8_t checkButtonClick(int x, int y) {
+		if (!this->btns.empty())
+		{
+			for (size_t i = 0; i < this->btns.size(); ++i)
+			{
+				if (x >= this->btns[i].rect.x && x <= this->btns[i].rect.x + this->btns[i].rect.w
+					&& y >= this->btns[i].rect.y && y <= this->btns[i].rect.y + this->btns[i].rect.h)
+				{
+					return i;
+				}
+			}
+		}
+		return -1;
+	}
 
 public:
 	Menu(){
@@ -41,6 +63,7 @@ public:
 		}
 	}
 
+	virtual void btnHandler() = 0;
 	
 	void blitTxtRect(SDL_Surface* surface, std::string txt, SDL_Rect rect) {
 		rect.x = rect.x - rect.w/2;
@@ -56,22 +79,8 @@ public:
 	//	
 	//}
 
-	int8_t checkButtonClick(int x, int y) {
-		if (!this->btns.empty())
-		{
-			for (size_t i = 0; i < this->btns.size(); ++i)
-			{
-				if (x >= this->btns[i].rect.x && x <= this->btns[i].rect.x + this->btns[i].rect.w
-					&& y >= this->btns[i].rect.y && y <= this->btns[i].rect.y + this->btns[i].rect.h)
-				{
-					return i;
-				}
-			}
-		}
-		return -1;
-	}
+	
 
-	virtual void blit(SDL_Surface*) override {}
+	virtual void blit(SDL_Surface*) override {};
 
 };
-

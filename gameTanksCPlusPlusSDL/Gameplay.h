@@ -7,13 +7,18 @@
 #include"BotLT.h"
 
 #include"StartWindow.h"
+#include "testClass.h"
+#include "aboutWin.h"
+#include "StatisticWin.h"
+
 
 class Gameplay : private baseGameClass
 {
 private:
 
 	Field* field= nullptr;
-	StartWindow* startWindow = nullptr;
+	Object* startWindow = nullptr;
+	Object* testCl = nullptr;
 
 	std::vector<Tanks*> TanksV = {};
 	std::vector<Object*> sceneObject = {};
@@ -46,6 +51,7 @@ public:
 		sceneObject.push_back(TanksV[4]);
 
 		startWindow = new StartWindow( menuImages, font);
+		testCl = new /*testClass(menuImages, font)*//*StartWindow*/StatisticWin(menuImages, font);
 
 		game = !errors::errorStatus ? true : false;
 	}
@@ -78,11 +84,11 @@ public:
 				TanksV[i]->action( field->getField(), this->event);
 				TanksV[i]->bulletHandler();
 			}
-			//startWindow->blit(surface);
+			testCl->blit(surface);
 			
 			for (auto& el : sceneObject)
 			{
-				el->blit(surface);
+				//el->blit(surface);
 			}
 
 			SDL_UpdateWindowSurface(this->win);

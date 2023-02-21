@@ -54,7 +54,7 @@ struct imagePath
 struct btnsStruct
 {
 	std::string text = "";
-	SDL_Rect rect = { 0,0,0,0 };
+	SDL_Rect rect = { 0,0,200, 60 };		/// default sizes for btns
 };
 
 

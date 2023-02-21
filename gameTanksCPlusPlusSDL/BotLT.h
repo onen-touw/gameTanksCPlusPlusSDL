@@ -26,7 +26,7 @@ public:
 	}
 
 
-	virtual void action(std::vector<std::vector<cell>> V, SDL_Event event = {}) override {
+	virtual void action(std::vector<std::vector<cell>> V, SDL_Event) override {
 
 		/// AI TTbot 
 		if (this->posInFldI > 0)
