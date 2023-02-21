@@ -71,8 +71,12 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>C:\VC_addons\SDL2-2.24.0\include;C:\VC_addons\SDL2_image-2.6.2\include;C:\VC_addons\SDL2_ttf-2.20.1\include;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\VC_addons\SDL2-2.24.0\lib\x64;C:\VC_addons\SDL2_image-2.6.2\lib\x64;C:\VC_addons\SDL2_ttf-2.20.1\lib\x64;$(LibraryPath)</LibraryPath>
+    <IncludePath>C:\Users\danii\OneDrive\Рабочий стол\SDL2-2.24.0\include;C:\Users\danii\OneDrive\Рабочий стол\SDL2_image-2.6.2\include;C:\Users\danii\OneDrive\Рабочий стол\SDL2_ttf-2.20.1\include;C:\VC_addons\SDL2-2.24.0\include;C:\VC_addons\SDL2_image-2.6.2\include;C:\VC_addons\SDL2_ttf-2.20.1\include;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\Users\danii\OneDrive\Рабочий стол\SDL2-2.24.0\lib\x64;C:\Users\danii\OneDrive\Рабочий стол\SDL2_image-2.6.2\lib\x64;C:\Users\danii\OneDrive\Рабочий стол\SDL2_ttf-2.20.1\lib\x64;C:\VC_addons\SDL2-2.24.0\lib\x64;C:\VC_addons\SDL2_image-2.6.2\lib\x64;C:\VC_addons\SDL2_ttf-2.20.1\lib\x64;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <IncludePath>C:\Users\danii\OneDrive\Рабочий стол\SDL2-2.24.0\include;C:\Users\danii\OneDrive\Рабочий стол\SDL2_image-2.6.2\include;C:\Users\danii\OneDrive\Рабочий стол\SDL2_ttf-2.20.1\include;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
+    <LibraryPath>C:\Users\danii\OneDrive\Рабочий стол\SDL2-2.24.0\lib\x64;C:\Users\danii\OneDrive\Рабочий стол\SDL2_image-2.6.2\lib\x64;C:\Users\danii\OneDrive\Рабочий стол\SDL2_ttf-2.20.1\lib\x64;$(VC_LibraryPath_x64);$(WindowsSDK_LibraryPath_x64)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
