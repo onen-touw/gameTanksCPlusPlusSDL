@@ -25,6 +25,11 @@ enum cellObjects: uint8_t
 	Empty, Wall, HardWall,
 };
 
+enum menuObjects : uint8_t
+{
+	BUTTON_BG, WIN_BG,
+};
+
 struct cell
 {
 	uint16_t x = 0;
@@ -49,7 +54,7 @@ struct imagePath
 struct btnsStruct
 {
 	std::string text = "";
-	SDL_Rect rect = { 0,0,0,0 };
+	SDL_Rect rect = { 0,0,200, 60 };		/// default sizes for btns
 };
 
 

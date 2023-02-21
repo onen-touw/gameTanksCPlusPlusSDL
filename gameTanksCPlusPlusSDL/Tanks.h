@@ -13,19 +13,12 @@ protected:
 	uint8_t posInFldI = 0;
 	uint8_t posInFldJ = 0;
 	
-	uint16_t posX = 0;
-	uint16_t posY = 0;
-
-	bool isBullet = false;
-
 	bullet* tBullet = nullptr;
 
 	uint8_t speed = config::tankSpeed;
 
 	std::vector<SDL_Surface*>images = {};
 	std::vector<SDL_Surface*>bulletImages = {};
-
-	uint8_t tempCountBulet = 0;
 
 public:
 	Tanks(uint8_t posInFldI, uint8_t posInFldJ , std::vector<SDL_Surface*>vImg, std::vector<SDL_Surface*>bulletImages)
