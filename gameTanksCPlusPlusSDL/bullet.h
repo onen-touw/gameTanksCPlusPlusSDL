@@ -29,8 +29,12 @@ public:
 
 	/// return false if the bullet died
 	///TODO: check for walls and other tanks
-	bool bulletTransmit() {
-		std::cout << x << " " << y << "\n";
+	bool bulletTransmit(/* field, Vector<tanks> */) {
+		//std::cout << x << " " << y << "\n";
+
+		/// checkimg walls
+		/// checkimg other tanks
+
 		switch (dirct)
 		{
 		case UP:

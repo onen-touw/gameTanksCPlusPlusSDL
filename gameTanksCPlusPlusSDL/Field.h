@@ -76,7 +76,7 @@ private:
 	}
 
 public:
-	std::vector<std::vector<cell>>getField() {
+	std::vector<std::vector<cell>>&getField() {
 		return this->field;
 	}
 

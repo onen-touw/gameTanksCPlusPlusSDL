@@ -51,6 +51,11 @@ struct imagePath
 	uint8_t id;
 };
 
+struct point
+{
+	uint32_t i = 0, j = 0;
+};
+
 struct btnsStruct
 {
 	std::string text = "";

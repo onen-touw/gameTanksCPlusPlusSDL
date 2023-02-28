@@ -13,7 +13,7 @@ public:
 
 	}
 
-	virtual void action(std::vector<std::vector<cell>> V, SDL_Event event = {}) override {
+	virtual void action(std::vector<std::vector<cell>> &V, SDL_Event event = {}) override {
 		if (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_UP)
 		{
 			if (this->dirct!=UP) dirct = UP;
