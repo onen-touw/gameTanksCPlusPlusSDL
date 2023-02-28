@@ -23,9 +23,6 @@ protected:
 public:
 	Tanks(uint8_t posInFldI, uint8_t posInFldJ , std::vector<SDL_Surface*>vImg, std::vector<SDL_Surface*>bulletImages)
 		: posInFldI(posInFldI), posInFldJ(posInFldJ), images(vImg), bulletImages(bulletImages){
-
-		
-
 		vizitedElement.reserve(alIterationMax * 4ll);
 		toVizit.reserve(alIterationMax * 4ll);
 	}
@@ -161,8 +158,6 @@ private:
 	std::vector<point> toVizit = {};
 
 	const uint8_t alIterationMax = 30;
-
-
 
 public:
 	void generateWay(point p1, std::vector<std::vector<cell>>& V) {
