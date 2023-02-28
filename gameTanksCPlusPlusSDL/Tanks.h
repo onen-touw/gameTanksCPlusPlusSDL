@@ -246,7 +246,6 @@ public:
 		//	{
 		//		waveAlg[i][p1.i] = 1;
 		//	}*/
-
 		//	return;
 		//}
 	}
