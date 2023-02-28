@@ -212,17 +212,16 @@ public:
 					}
 				}
 				++stepCost;
-
 				toVizit.clear();
+			}
 
-				/*for (size_t i = 0; i < waveAlg.size(); i++)
+			for (size_t i = 0; i < waveAlg.size(); i++)
+			{
+				for (size_t j = 0; j < waveAlg[0].size(); j++)
 				{
-					for (size_t j = 0; j < waveAlg[0].size(); j++)
-					{
-						std::cout << waveAlg[i][j] << " ";
-					}
-					std::cout << "\n";
-				}*/
+					std::cout << waveAlg[i][j] << " ";
+				}
+				std::cout << "\n";
 			}
 			getNextStep(p2, waveAlg);
 			vizitedElement.clear();
