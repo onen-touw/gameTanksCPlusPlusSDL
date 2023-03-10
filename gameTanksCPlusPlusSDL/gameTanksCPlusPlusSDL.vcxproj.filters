@@ -52,12 +52,12 @@
     <Filter Include="Файлы заголовков\menu">
       <UniqueIdentifier>{22390c7b-98ba-4e7c-9bb4-99f4389f0fca}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Файлы ресурсов\maps">
+      <UniqueIdentifier>{d797bce6-a81b-4a9e-8ed8-6520a21f6035}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="ErrorNS.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
     <ClCompile Include="CharacterTank.cpp">
@@ -96,6 +96,15 @@
     <ClCompile Include="menuMainWin.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
+    <ClCompile Include="aboutWin.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="MenuHandler.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="StatisticWin.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="baseGameClass.h">
@@ -105,9 +114,6 @@
       <Filter>Файлы заголовков\base</Filter>
     </ClInclude>
     <ClInclude Include="Object.h">
-      <Filter>Файлы заголовков\base</Filter>
-    </ClInclude>
-    <ClInclude Include="ErrorNS.h">
       <Filter>Файлы заголовков\base</Filter>
     </ClInclude>
     <ClInclude Include="CharacterTank.h">
@@ -138,6 +144,15 @@
       <Filter>Файлы заголовков\menu</Filter>
     </ClInclude>
     <ClInclude Include="menuMainWin.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="aboutWin.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="MenuHandler.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="StatisticWin.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
   </ItemGroup>
@@ -204,5 +219,10 @@
     <Font Include="font\courier.ttf">
       <Filter>Файлы ресурсов\font</Filter>
     </Font>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="save\lvl1.txt">
+      <Filter>Файлы ресурсов\maps</Filter>
+    </Text>
   </ItemGroup>
 </Project>

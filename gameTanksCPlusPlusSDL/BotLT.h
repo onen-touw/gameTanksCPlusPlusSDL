@@ -26,10 +26,10 @@ public:
 	}
 
 
-	virtual void action(std::vector<std::vector<cell>> &V, SDL_Event) override {
+	/*virtual void action(std::vector<std::vector<cell>> &V, SDL_Event) override {
 
 		/// AI TTbot 
-		if (this->posInFldI > 0)
+		if (this->posInFldI > 0)0
 		{
 			if (this->dirct != UP)
 			{
@@ -40,7 +40,7 @@ public:
 				--this->posInFldI;
 			}
 		}
-	}
+	}*/
 
 
 };

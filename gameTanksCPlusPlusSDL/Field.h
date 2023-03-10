@@ -9,8 +9,8 @@ class Field : public Object
 private:
 	std::vector<std::vector<cell>>field;
 	std::vector<SDL_Surface*>images;
-	std::string saveFolder = "save/";
-
+	std::string mapsFolder = "maps/";
+	bool loadMapStatus = true;
 
 private:
 	void fDebug() {
@@ -29,7 +29,7 @@ private:
 	///example path: lvl1.txt
 	void openMap(std::string path, std::vector<std::vector<cell>>& V) {
 
-		std::ifstream file((this->saveFolder + path).c_str());
+		std::ifstream file((this->mapsFolder + path).c_str());
 		if (file.is_open())
 		{
 	#ifdef DEBUG
@@ -53,8 +53,8 @@ private:
 						break;
 					}
 
-					V[l][m].obj = static_cast<uint8_t>(tempStr[k] - '0');
-					V[l][m].objHp = static_cast<uint8_t>(tempStr[++k] - '0');
+					V[l][m].obj = static_cast<cellObjects>(tempStr[k] - '0');
+					V[l][m].objHp = static_cast<_objHP>(tempStr[++k] - '0');
 					m++;
 					k++;
 				}
@@ -66,7 +66,7 @@ private:
 		}
 		else
 		{
-			errors::errorStatus = ErrorsCodes::MAP_LOADING_ERROR;
+			loadMapStatus = false;
 
 	#ifdef DEBUG
 			std::cout << "loadingFieldResourses::openMap::loadingError file was't open\n";
@@ -76,6 +76,9 @@ private:
 	}
 
 public:
+
+	bool getMapLoadingStatus() const { return loadMapStatus; }
+
 	std::vector<std::vector<cell>>&getField() {
 		return this->field;
 	}
@@ -99,7 +102,6 @@ public:
 			x = 0;
 		}
 		this->openMap(mapName, field);
-		//this->loadImages(this->fieldImagesPathVector);
 
 #ifdef DEBUG
 		std::cout << "Field::constructor\n";
@@ -133,10 +135,20 @@ public:
 					SDL_BlitScaled(this->images[cellObjects::Empty], NULL, surface, &rc);
 					break;
 				case cellObjects::Wall:
-					SDL_BlitScaled(this->images[cellObjects::Wall], NULL, surface, &rc);
-					break;
-				case cellObjects::HardWall:
-					SDL_BlitScaled(this->images[cellObjects::HardWall], NULL, surface, &rc);
+					switch (tmp.objHp)
+					{
+					case Full:
+						SDL_BlitScaled(this->images[cellObjects::Wall], NULL, surface, &rc);
+						break;
+					case Broken66:
+						SDL_BlitScaled(this->images[cellObjects::Wall66Perc], NULL, surface, &rc);
+						break;
+					case Broken33:
+						SDL_BlitScaled(this->images[cellObjects::Wall33Perc], NULL, surface, &rc);
+						break;
+					default:
+						break;
+					}
 					break;
 				default:
 					break;

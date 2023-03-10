@@ -1,11 +1,9 @@
 #pragma once
 
-#ifndef DEBUG
-///for consol debug
+///for consol debuging
 #define DEBUG
-#endif // !DEBUG
 
-#include "ErrorNS.h"
+#include<iostream>
 #include<SDL.h>
 #include<SDL_image.h>
 #include<SDL_ttf.h>
@@ -22,7 +20,12 @@ enum direction : uint8_t
 
 enum cellObjects: uint8_t
 {
-	Empty, Wall, HardWall,
+	Empty, Wall, Wall66Perc, Wall33Perc, HardWall,
+};
+
+enum _objHP : uint8_t
+{
+	Full=2, Broken66=1, Broken33=0
 };
 
 enum menuObjects : uint8_t
@@ -34,8 +37,20 @@ struct cell
 {
 	uint16_t x = 0;
 	uint16_t y = 0;
-	uint8_t objHp = 0;
-	uint8_t obj = cellObjects::Empty;
+	uint8_t objHp = _objHP::Full;
+	cellObjects obj = cellObjects::Empty;
+
+	void breakWall() {
+		if (this->objHp > 0)
+		{
+			--objHp;
+		}
+		else
+		{
+			this->obj = cellObjects::Empty;
+		}
+	}
+
 };
 
 struct bulletStruct
@@ -53,7 +68,7 @@ struct imagePath
 
 struct point
 {
-	uint32_t i = 0, j = 0;
+	int32_t i = 0, j = 0;
 };
 
 struct btnsStruct
@@ -76,7 +91,8 @@ public:
 	static constexpr uint16_t winWidth = cellsWCount * cellSize + rightBlockW;		///px
 
 	static constexpr uint8_t tankSpeed = 10;										///px
-	static constexpr uint8_t bulletSpeed = 30;										///px
+	static constexpr uint8_t bulletSpeed = 20;										///px
+	static constexpr uint8_t bulletMaxFlyDistance = 10;								///cells
 
 	static constexpr uint8_t FPS = 60;												///px
 	

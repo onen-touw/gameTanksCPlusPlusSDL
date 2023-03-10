@@ -5,15 +5,30 @@
 class baseGameClass 
 {
 protected:
+	enum ErrorsCodes : uint8_t
+	{
+		OK,
+		IMG_LOADING_ERROR = 100,
+		MAP_LOADING_ERROR,
+		FONT_OPEN_ERROR,
+		SDL_INIT_ERROR = 200,
+		SDL_IMAGE_INIT_ERROR,
+		SDL_TTF_INIT_ERROR,
+		SDL_WIN_CREATE_ERROR,
+		SDL_TARGET_SURFACE_CREATE_ERROR,
+	};
+
 	SDL_Window* win = nullptr;
 	SDL_Surface* surface = nullptr;
+
+	ErrorsCodes errorStatus = OK;
 private:
-	
-	/// to array matrix[][]
+
 	std::vector<imagePath>fieldImagesPathVector = {
 		{"./image/field/emptyCell.png", cellObjects::Empty},
 		{"./image/field/wall.png", cellObjects::Wall},
-		{"./image/field/hardWall.png", cellObjects::HardWall},
+		{"./image/field/wallBroken66percent.png", cellObjects::Wall66Perc},
+		{"./image/field/wallBroken33percent.png", cellObjects::Wall33Perc},
 	};
 	
 	std::vector<imagePath>bulletImagesPathVector = {			
@@ -77,19 +92,19 @@ private:
 
 			if (vSurf[tmp.id] == nullptr)
 			{
-				errors::errorStatus = ErrorsCodes::IMG_LOADING_ERROR;
+				errorStatus = ErrorsCodes::IMG_LOADING_ERROR;
 
 	#ifdef DEBUG
 				std::cout << "Can't load: " << IMG_GetError() << std::endl;
 
 	#endif // DEBUG
 			}
+	#ifdef DEBUG
 			else
 			{
-	#ifdef DEBUG
 				std::cout << "picture uploaded:: #" << static_cast<uint16_t>(vPaths[i].id) << "\n";
-	#endif // DEBUG
 			}
+	#endif // DEBUG
 		}
 		return;
 	}
@@ -127,35 +142,33 @@ public:
 	#endif // DEBUG
 	}
 
+
 	void initModuls() {
 
 		if (SDL_Init(SDL_INIT_EVERYTHING) != 0)
 		{
-			errors::errorStatus = ErrorsCodes::SDL_INIT_ERROR;
+			errorStatus = ErrorsCodes::SDL_INIT_ERROR;
 		}
 		int flags = IMG_INIT_PNG;
 		if (!(IMG_Init(flags) & flags)) {
-			//std::cout << "Can't init image: " << IMG_GetError() << std::endl;
-			errors::errorStatus = ErrorsCodes::SDL_IMAGE_INIT_ERROR;
+			errorStatus = ErrorsCodes::SDL_IMAGE_INIT_ERROR;
 		}
 
 		if (TTF_Init() != 0)
 		{
-			errors::errorStatus = ErrorsCodes::SDL_TTF_INIT_ERROR;
-			//std::cout << "problem::ttfInit\n";
+			errorStatus = ErrorsCodes::SDL_TTF_INIT_ERROR;
 		}
 		
 		win = SDL_CreateWindow(config::winTitle, 100, 100,
 			config::winWidth, config::winHeight, SDL_WINDOW_SHOWN);
 		if (win == NULL) {
-			errors::errorStatus = ErrorsCodes::SDL_WIN_CREATE_ERROR;
-			//std::cout << "Can't create window: " << SDL_GetError() << std::endl;
+			errorStatus = ErrorsCodes::SDL_WIN_CREATE_ERROR;
 		}
 
 		surface = SDL_GetWindowSurface(win);
 		if (surface == nullptr)
 		{
-			errors::errorStatus = ErrorsCodes::SDL_TARGET_SURFACE_CREATE_ERROR;
+			errorStatus = ErrorsCodes::SDL_TARGET_SURFACE_CREATE_ERROR;
 		}
 		return;
 	}
@@ -172,11 +185,10 @@ public:
 		font = TTF_OpenFont("./font/courier.ttf", 30);
 		if (font == NULL)
 		{
-			errors::errorStatus = ErrorsCodes::FONT_OPEN_ERROR;
+			errorStatus = ErrorsCodes::FONT_OPEN_ERROR;
 		}
 
 	}
-
 
 };
 

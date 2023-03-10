@@ -2,6 +2,7 @@
 
 #include"Object.h"
 #include"bullet.h"
+#include<functional>
 
 class Tanks : public Object
 {
@@ -10,21 +11,21 @@ public:
 protected:
 	direction dirct = direction::RIGHT;
 
-	uint8_t posInFldI = 0;
-	uint8_t posInFldJ = 0;
+	int16_t posInFldI = 0;
+	int16_t posInFldJ = 0;
 	
 	bullet* tBullet = nullptr;
-
-	uint8_t speed = config::tankSpeed;
 
 	std::vector<SDL_Surface*>images = {};
 	std::vector<SDL_Surface*>bulletImages = {};
 
+	uint8_t detectionByLenthOfWay = 25;
+	uint8_t minimalTargetDistanse = 0;
+
 public:
 	Tanks(uint8_t posInFldI, uint8_t posInFldJ , std::vector<SDL_Surface*>vImg, std::vector<SDL_Surface*>bulletImages)
 		: posInFldI(posInFldI), posInFldJ(posInFldJ), images(vImg), bulletImages(bulletImages){
-		vizitedElement.reserve(alIterationMax * 4ll);
-		toVizit.reserve(alIterationMax * 4ll);
+	
 	}
 
 	virtual ~Tanks(){
@@ -34,117 +35,50 @@ public:
 		}
 	}
 
-	virtual void action(std::vector<std::vector<cell>>& V, SDL_Event = {}) = 0;
-
-	uint8_t distanse(point& p1, point& p2) {
-		return fabs(p2.i - p1.i) + fabs(p2.j - p1.j);
-	}
-
+	//virtual void action(std::vector<std::vector<cell>>& V, SDL_Event = {}) = 0;
 private:
-	std::vector<point> Neighbors(point p, std::vector<std::vector<cell>>&V, 
-		std::vector<std::vector<int16_t>>& wave) {
-
-		std::vector<point> neighbours = {};
-		point pp = {};
-
-		if (p.i > 0)
-		{
-			if (!wave[p.i-1ll][p.j])
-			{
-				if (!V[p.i - 1ll][p.j].obj)
-				{
-					pp = { p.i - 1 , p.j };
-					neighbours.push_back(pp);
-				}
-				else
-				{
-					wave[p.i - 1ll][p.j] = -1;
-				}
-			}
-		}
-		if (p.i +1ll < V.size())
-		{
-			if (!wave[p.i+1ll][p.j])
-			{
-				if (!V[p.i + 1ll][p.j].obj)
-				{
-					pp = { p.i + 1 , p.j };
-					neighbours.push_back(pp);
-				}
-				else
-				{
-					wave[p.i + 1ll][p.j] = -1;
-				}
-			}
-		}
-
-		if (p.j > 0)
-		{
-			if (!wave[p.i][p.j-1ll])
-			{
-				if (!V[p.i][p.j - 1ll].obj)
-				{
-					pp = { p.i , p.j - 1 };
-					neighbours.push_back(pp);
-				}
-				else
-				{
-					wave[p.i ][p.j - 1ll] = -1;
-				}
-			}
-		}
-		if (p.j + 1ll < V[0].size())
-		{
-			if (!wave[p.i][p.j+1ll])
-			{
-				if (!V[p.i][p.j + 1ll].obj)
-				{
-					pp = { p.i , p.j + 1 };
-					neighbours.push_back(pp);
-				}
-				else
-				{
-					wave[p.i][p.j + 1ll] = -1;
-				}
-			}
-		}
-
-		return neighbours;
+	int8_t distanse(point p1) {
+		return fabs(p1.i - posInFldI) + fabs(p1.j - posInFldJ);
 	}
 
-	void getNextStep(point p ,std::vector<std::vector<int16_t>>& wave) {
-		uint16_t min = wave[p.i][p.j];
-		point tmp = {};
-		if (p.i>0)
+
+public:
+	void NextStep(std::vector<std::vector<int16_t>>& wave) {
+		//if (distanse(charPosition) > detectionRadius) return;
+		if (wave[posInFldI][posInFldJ] > detectionByLenthOfWay) return;
+
+		int16_t min = wave[posInFldI][posInFldJ];
+		point tmp = {posInFldI , posInFldJ};
+		if (posInFldI>0)
 		{
-			if (wave[p.i - 1ll][p.j]> 3 && wave[p.i - 1ll][ p.j] < min)
+			if (wave[posInFldI - 1ll][posInFldJ]> minimalTargetDistanse && wave[posInFldI - 1ll][posInFldJ] < min)
 			{
-				min = wave[p.i - 1ll][p.j];
-				tmp = { p.i - 1, p.j };
+				min = wave[posInFldI - 1ll][posInFldJ];
+				tmp = { posInFldI - 1, posInFldJ };
 				dirct = UP;
 			}
 		}
-		if (p.j>0)
+		if (posInFldJ>0)
 		{
-			if (wave[p.i][p.j-1ll] > 3 && wave[p.i][p.j-1ll] < min) {
-				min = wave[p.i][p.j - 1ll];
-				tmp = { p.i, p.j -1};
+			if (wave[posInFldI][posInFldJ-1ll] > minimalTargetDistanse && wave[posInFldI][posInFldJ-1ll] < min) {
+				min = wave[posInFldI][posInFldJ - 1ll];
+				tmp = { posInFldI, posInFldJ -1};
 				dirct = LEFT;
 			}
 		}
-		if (p.i+1ll < wave.size())
+		if (posInFldI< wave.size() - 1)
 		{
-			if (wave[p.i+1ll][p.j] > 3 && wave[p.i+1ll][p.j] < min) {
-				min = wave[p.i + 1ll][p.j];
-				tmp = { p.i + 1, p.j };
+			if (wave[posInFldI+1ll][posInFldJ] > minimalTargetDistanse && wave[posInFldI+1ll][posInFldJ] < min) {
+				min = wave[posInFldI + 1ll][posInFldJ];
+				tmp = { posInFldI + 1, posInFldJ };
 				dirct = DOWN;
 			}
 		}
-		if (p.j+1ll < wave[0].size())
+		if (posInFldJ< wave[0].size() - 1)
 		{
-			if (wave[p.i ][p.j + 1ll] > 3 && wave[p.i][p.j + 1ll] < min) {
-				min = wave[p.i][p.j + 1ll];
-				tmp = { p.i, p.j+1 };
+			if (wave[posInFldI ][posInFldJ + 1ll] > minimalTargetDistanse && wave[posInFldI][posInFldJ + 1ll] < min) {
+				min = wave[posInFldI][posInFldJ + 1ll];
+				tmp = { posInFldI, posInFldJ+1 };
 				dirct = RIGHT;
 			}
 		}
@@ -152,116 +86,71 @@ private:
 		posInFldJ = tmp.j;
 	}
 
-private:
-	std::vector<std::vector<int16_t>> waveAlg;
-	std::vector<point> vizitedElement = {};
-	std::vector<point> toVizit = {};
 
-	const uint8_t alIterationMax = 30;
-
-public:
-	void generateWay(point p1, std::vector<std::vector<cell>>& V) {
-		point p2 = { posInFldI, posInFldJ };
-		if (distanse(p1, p2) > 1)
-		{
-
-			waveAlg.resize(config::cellsHCount);
-			for (size_t i = 0; i < waveAlg.size(); i++)
-			{
-				waveAlg[i].resize(config::cellsWCount);
-			}
-
-			uint8_t stepCost = 1;
-
-			vizitedElement.push_back(p1);
-
-			uint16_t TEMP_COUNTER = 0;
-
-			while (waveAlg[p2.i][p2.j] == 0)
-			{
-				if (++TEMP_COUNTER > alIterationMax)
-				{
-					return;
-				}
-
-				for (int i = 0; i < vizitedElement.size(); ++i)
-				{
-					std::vector<point> tpm = Neighbors(vizitedElement[i], V, waveAlg);
-					if (!tpm.empty())
-					{
-						for (int j = 0; j < tpm.size(); j++)
-						{
-							toVizit.push_back(tpm[j]);
-						}
-					}
-				}
-
-				for (int i = 0; i < toVizit.size(); ++i)
-				{
-					point tmp = toVizit[i];
-
-					if (waveAlg[tmp.i][tmp.j] == 0)
-					{
-						waveAlg[tmp.i][tmp.j] = stepCost;
-						vizitedElement.push_back(tmp);
-					}
-				}
-				++stepCost;
-				toVizit.clear();
-			}
-
-			for (size_t i = 0; i < waveAlg.size(); i++)
-			{
-				for (size_t j = 0; j < waveAlg[0].size(); j++)
-				{
-					std::cout << waveAlg[i][j] << " ";
-				}
-				std::cout << "\n";
-			}
-			getNextStep(p2, waveAlg);
-			vizitedElement.clear();
-			waveAlg.clear();
-		}
-		else return;
-		//else {
-		//	/*for (size_t i = 0; i < 6; ++i)
-		//	{
-		//		waveAlg[p1.i][i] = 1;
-		//	}
-		//	for (size_t i = 6; i > 0; --i)
-		//	{
-		//		waveAlg[p1.i][i] = 1;
-		//	}
-		//	for (size_t i = 0; i < 6; ++i)
-		//	{
-		//		waveAlg[i][p1.j] = 1;
-		//	}
-		//	for (size_t i = 6; i > 0; --i)
-		//	{
-		//		waveAlg[i][p1.i] = 1;
-		//	}*/
-		//	return;
-		//}
-	}
-
-	point getPosition()const { return { posInFldI, posInFldJ }; }
+	point getPosition() const { return { posInFldI, posInFldJ }; }
 
 	bool isShot() const {
 		return tBullet != nullptr ? true : false;
 	}
 
 	/// without checking for walls and checking for tanks
-	void bulletHandler(/* field&, Vector<tanks>& */) {
+	void bulletHandler(std::vector<std::vector<cell>>& field, std::vector<Tanks*> &tanks, std::function<void(size_t)>delFoo) {
 		if (isShot())
 		{
-			if (!tBullet->bulletTransmit(/* field, Vector<tanks> */)) {
+			if (!tBullet->bulletTransmit(field)) {
+			#ifdef DEBUG
+				std::cout << "bullet dead\n";
+			#endif // DEBUG
 				delete tBullet;
 				tBullet = nullptr;
 			} 
-			else std::cout << "bullet is handling\n";
+			else
+			{
+				point tankTmpPos = {};
+				point bulletTmpPos = tBullet->getPositionCell();
+				for (size_t i = 0; i < tanks.size(); ++i)
+				{
+					tankTmpPos = tanks[i]->getPosition();
+					if (tankTmpPos.i == bulletTmpPos.i && tankTmpPos.j == bulletTmpPos.j)
+					{
+						std::cout << "hit\n";
+						tanks.erase(tanks.begin() + i);
+						delFoo(i);
+						delete tBullet;
+						tBullet = nullptr;
+						return;
+					}
+				}
+			}
 		}
 	}
 
+//protected:
+//	void doShot()
+//	{
+//		if (!isShot())
+//		{
+//			tBullet = new bullet(dirct, posInFldJ * cellPxSize, posInFldI * cellPxSize);
+//			tBullet->setDeathPoint(V, posInFldI, posInFldJ);
+//		#ifdef DEBUG
+//					std::cout << "bullet is flying\n";
+//		#endif // DEBUG
+//		}
+//	}
+
+	void doShot() {
+		///characterPos&, field&, 
+		if (!isShot())
+		{
+			tBullet = new bullet(dirct, posInFldJ * cellPxSize, posInFldI * cellPxSize);
+		#ifdef DEBUG
+			std::cout << "bullet is flying\n";
+		#endif // DEBUG
+		}
+	}
+
+
+public:
 	virtual void blit(SDL_Surface* surface) final {
 
 		if (isShot())

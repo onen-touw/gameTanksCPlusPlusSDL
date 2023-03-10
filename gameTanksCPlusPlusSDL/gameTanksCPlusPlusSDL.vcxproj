@@ -142,7 +142,6 @@
     <ClCompile Include="botTT.cpp" />
     <ClCompile Include="bullet.cpp" />
     <ClCompile Include="CharacterTank.cpp" />
-    <ClCompile Include="ErrorNS.cpp" />
     <ClCompile Include="Field.cpp" />
     <ClCompile Include="Gameplay.cpp" />
     <ClCompile Include="globals.cpp" />
@@ -162,7 +161,6 @@
     <ClInclude Include="botTT.h" />
     <ClInclude Include="bullet.h" />
     <ClInclude Include="CharacterTank.h" />
-    <ClInclude Include="ErrorNS.h" />
     <ClInclude Include="Field.h" />
     <ClInclude Include="Gameplay.h" />
     <ClInclude Include="globals.h" />
@@ -197,6 +195,9 @@
   </ItemGroup>
   <ItemGroup>
     <Font Include="font\courier.ttf" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="save\lvl1.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
