@@ -32,7 +32,7 @@ public:
 	}
 
 	point getPosition() const { return { x, y }; }
-	point getPositionCell() const { return { y / cellSize, x/cellSize }; }
+	point getPositionCell() const { return { y / cellSize, x / cellSize }; }
 
 	void setDeathPoint(std::vector<std::vector<cell>>&V, int16_t i, int16_t j) {
 		uint8_t counter = 0;

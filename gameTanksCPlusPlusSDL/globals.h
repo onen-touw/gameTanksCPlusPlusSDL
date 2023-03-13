@@ -69,6 +69,7 @@ struct imagePath
 struct point
 {
 	int32_t i = 0, j = 0;
+	bool operator == (const point& other) { return (i == other.i && j == other.j); }
 };
 
 struct btnsStruct
@@ -90,9 +91,19 @@ public:
 	static constexpr uint16_t winHeight = cellsHCount * cellSize;					///px
 	static constexpr uint16_t winWidth = cellsWCount * cellSize + rightBlockW;		///px
 
-	static constexpr uint8_t tankSpeed = 10;										///px
 	static constexpr uint8_t bulletSpeed = 20;										///px
+
+	static constexpr uint32_t moveTanksDelay = 400;									///milliseconds
+
 	static constexpr uint8_t bulletMaxFlyDistance = 10;								///cells
+
+	///if distance on the waveMap is less than this param than 
+	///bot starts moving to the target
+	static constexpr uint8_t detectionByLenthOfWay = 25;							///cells on waveMap
+
+	///if distance on the waveMap is greater than this param than 
+	///bot can move to the target
+	static constexpr uint8_t minimalTargetDistanse = 1;								///cells on waveMap
 
 	static constexpr uint8_t FPS = 60;												///px
 	

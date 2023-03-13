@@ -4,6 +4,7 @@
 #include"bullet.h"
 #include<functional>
 
+
 class Tanks : public Object
 {
 public:
@@ -19,8 +20,11 @@ protected:
 	std::vector<SDL_Surface*>images = {};
 	std::vector<SDL_Surface*>bulletImages = {};
 
-	uint8_t detectionByLenthOfWay = 25;
-	uint8_t minimalTargetDistanse = 0;
+	uint8_t detectionByLenthOfWay = config::detectionByLenthOfWay;
+	uint8_t minimalTargetDistanse = config::minimalTargetDistanse;
+
+	bool ableToShot = false;
+
 
 public:
 	Tanks(uint8_t posInFldI, uint8_t posInFldJ , std::vector<SDL_Surface*>vImg, std::vector<SDL_Surface*>bulletImages)
@@ -35,7 +39,6 @@ public:
 		}
 	}
 
-	//virtual void action(std::vector<std::vector<cell>>& V, SDL_Event = {}) = 0;
 private:
 	int8_t distanse(point p1) {
 		return fabs(p1.i - posInFldI) + fabs(p1.j - posInFldJ);
@@ -44,14 +47,17 @@ private:
 
 public:
 	void NextStep(std::vector<std::vector<int16_t>>& wave) {
-		//if (distanse(charPosition) > detectionRadius) return;
-		if (wave[posInFldI][posInFldJ] > detectionByLenthOfWay) return;
 
-		int16_t min = wave[posInFldI][posInFldJ];
-		point tmp = {posInFldI , posInFldJ};
+		if (wave[posInFldI][posInFldJ] > detectionByLenthOfWay) return;
+		if (ableToShot) return;
+	
+		int16_t min = INT16_MAX;
+		int16_t tmpI = 0;
+		point tmp = {posInFldI, posInFldJ};
 		if (posInFldI>0)
 		{
-			if (wave[posInFldI - 1ll][posInFldJ]> minimalTargetDistanse && wave[posInFldI - 1ll][posInFldJ] < min)
+			tmpI = wave[posInFldI - 1ll][posInFldJ];
+			if (tmpI > minimalTargetDistanse && tmpI >0 && tmpI < min)
 			{
 				min = wave[posInFldI - 1ll][posInFldJ];
 				tmp = { posInFldI - 1, posInFldJ };
@@ -60,7 +66,8 @@ public:
 		}
 		if (posInFldJ>0)
 		{
-			if (wave[posInFldI][posInFldJ-1ll] > minimalTargetDistanse && wave[posInFldI][posInFldJ-1ll] < min) {
+			tmpI = wave[posInFldI][posInFldJ - 1ll];
+			if (tmpI > minimalTargetDistanse && tmpI > 0 && tmpI < min) {
 				min = wave[posInFldI][posInFldJ - 1ll];
 				tmp = { posInFldI, posInFldJ -1};
 				dirct = LEFT;
@@ -68,7 +75,8 @@ public:
 		}
 		if (posInFldI< wave.size() - 1)
 		{
-			if (wave[posInFldI+1ll][posInFldJ] > minimalTargetDistanse && wave[posInFldI+1ll][posInFldJ] < min) {
+			tmpI = wave[posInFldI + 1ll][posInFldJ];
+			if (tmpI > minimalTargetDistanse && tmpI > 0 && tmpI < min) {
 				min = wave[posInFldI + 1ll][posInFldJ];
 				tmp = { posInFldI + 1, posInFldJ };
 				dirct = DOWN;
@@ -76,7 +84,8 @@ public:
 		}
 		if (posInFldJ< wave[0].size() - 1)
 		{
-			if (wave[posInFldI ][posInFldJ + 1ll] > minimalTargetDistanse && wave[posInFldI][posInFldJ + 1ll] < min) {
+			tmpI = wave[posInFldI][posInFldJ + 1ll];
+			if (tmpI > minimalTargetDistanse && tmpI > 0 && tmpI < min) {
 				min = wave[posInFldI][posInFldJ + 1ll];
 				tmp = { posInFldI, posInFldJ+1 };
 				dirct = RIGHT;
@@ -93,31 +102,40 @@ public:
 		return tBullet != nullptr ? true : false;
 	}
 
-	/// without checking for walls and checking for tanks
-	void bulletHandler(std::vector<std::vector<cell>>& field, std::vector<Tanks*> &tanks, std::function<void(size_t)>delFoo) {
+	void removeBullet() {
+		delete tBullet;
+		tBullet = nullptr;
+	}
+
+	/// with checking for walls and checking for tanks
+	virtual void bulletHandler(std::vector<std::vector<cell>>& field, std::vector<Tanks*>& tanks, 
+		 std::function<void(size_t)>delFoo = nullptr, point charPos = {})
+	{
 		if (isShot())
 		{
-			if (!tBullet->bulletTransmit(field)) {
+			if (!tBullet->bulletTransmit(field)) 
+			{
+				removeBullet();
+
 			#ifdef DEBUG
 				std::cout << "bullet dead\n";
 			#endif // DEBUG
-				delete tBullet;
-				tBullet = nullptr;
 			} 
 			else
 			{
-				point tankTmpPos = {};
 				point bulletTmpPos = tBullet->getPositionCell();
+
+				if (charPos == bulletTmpPos)
+				{
+					std::cout << "bot hits char \n";
+					removeBullet();
+					return;
+				}
 				for (size_t i = 0; i < tanks.size(); ++i)
 				{
-					tankTmpPos = tanks[i]->getPosition();
-					if (tankTmpPos.i == bulletTmpPos.i && tankTmpPos.j == bulletTmpPos.j)
+					if (tanks[i]->getPosition() == bulletTmpPos)
 					{
-						std::cout << "hit\n";
-						tanks.erase(tanks.begin() + i);
-						delFoo(i);
-						delete tBullet;
-						tBullet = nullptr;
+						removeBullet();
 						return;
 					}
 				}
@@ -126,27 +144,67 @@ public:
 	}
 
 //protected:
-//	void doShot()
-//	{
-//		if (!isShot())
-//		{
-//			tBullet = new bullet(dirct, posInFldJ * cellPxSize, posInFldI * cellPxSize);
-//			tBullet->setDeathPoint(V, posInFldI, posInFldJ);
-//		#ifdef DEBUG
-//					std::cout << "bullet is flying\n";
-//		#endif // DEBUG
-//		}
-//	}
-
-	void doShot() {
-		///characterPos&, field&, 
+	void doShot(std::vector<std::vector<cell>>& field)
+	{
 		if (!isShot())
 		{
 			tBullet = new bullet(dirct, posInFldJ * cellPxSize, posInFldI * cellPxSize);
+			tBullet->setDeathPoint(field, posInFldI, posInFldJ);
+
+			//currentTime = SDL_GetTicks();
 		#ifdef DEBUG
-			std::cout << "bullet is flying\n";
+					std::cout << "bullet is flying\n";
 		#endif // DEBUG
 		}
+	}
+
+	void botShotActions(point characterPos, std::vector<std::vector<cell>>&field) {
+		if (distanse(characterPos) > config::bulletMaxFlyDistance)
+		{
+			ableToShot = false;
+			return;
+		}
+
+		if (characterPos.i == posInFldI)
+		{
+			if (characterPos.j < posInFldJ)
+			{
+				std::cout << "Bot can shot/ char left\n";
+				dirct = LEFT;
+				doShot(field);
+				ableToShot = true;
+				return;
+			}
+			else
+			{
+				std::cout << "Bot can shot/ char right\n";
+				dirct = RIGHT;
+				doShot(field);
+				ableToShot = true;
+				return;
+			}
+		}
+		else if (characterPos.j == posInFldJ)
+		{
+			if (characterPos.i < posInFldI)
+			{
+				std::cout << "Bot can shot/ char upper\n";
+				dirct = UP;
+				doShot(field);
+				ableToShot = true;
+				return;
+			}
+			else
+			{
+				dirct = DOWN;
+				std::cout << "Bot can shot/ char lower\n";
+				doShot(field);
+				ableToShot = true;
+				return;
+			}
+		}
+		ableToShot = false;
+		return;
 	}
 
 

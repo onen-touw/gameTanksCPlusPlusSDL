@@ -4,6 +4,7 @@
 
 class CharacterTank : public Tanks
 {
+private: uint8_t killCounter = 0;
 
 public:
 
@@ -106,12 +107,19 @@ private:
 	std::vector<point> toVizit = {};
 
 public:
-	void generateWayMap(std::vector<std::vector<cell>>& V) {
+	void generateWayMap(/*point characterPos,*/  std::vector<std::vector<cell>>& V, std::vector<Tanks*>&tanks) {
 		
 		uint16_t stepCost = 1;
 
 		resetToZeroWaveMap();
 		waveAlg[posInFldI][posInFldJ] = -1;
+
+		point tmp = {};
+		for (auto& el : tanks)
+		{
+			tmp = el->getPosition();
+			waveAlg[tmp.i][tmp.j] = -1;
+		}
 
 		vizitedElement.push_back({ posInFldI , posInFldJ});
 		do
@@ -145,15 +153,6 @@ public:
 
 		vizitedElement.clear();
 
-		/*std::cout << "\n";
-		for (size_t i = 0; i < waveAlg.size(); i++)
-		{
-			for (size_t j = 0; j < waveAlg[0].size(); j++)
-			{
-				std::cout << waveAlg[i][j] << " ";
-			}
-			std::cout << "\n";
-		}*/
 	}
 
 	std::vector<std::vector<int16_t>>& getWaveMap() { return this->waveAlg; }
@@ -217,5 +216,40 @@ public:
 		}
 	}
 
+
+	virtual void bulletHandler(std::vector<std::vector<cell>>& field, std::vector<Tanks*>& tanks,
+		std::function<void(size_t)>delFoo = nullptr, point charPos = {})
+	{
+		if (isShot())
+		{
+			if (!tBullet->bulletTransmit(field))
+			{
+				removeBullet();
+
+#ifdef DEBUG
+				std::cout << "bullet dead\n";
+#endif // DEBUG
+			}
+			else
+			{
+				point tankTmpPos = {};
+				point bulletTmpPos = tBullet->getPositionCell();
+
+				for (size_t i = 0; i < tanks.size(); ++i)
+				{
+					if (tanks[i]->getPosition() == bulletTmpPos)
+					{
+						std::cout << "char hits bos\n";
+						tanks.erase(tanks.begin() + i);
+						delFoo(i);
+						++killCounter;
+						removeBullet();
+
+						return;
+					}
+				}
+			}
+		}
+	}
 
 };
