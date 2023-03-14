@@ -5,10 +5,10 @@
 class Object
 {
 protected:
-	uint8_t cellPxSize = 0;
+	uint8_t cellPxSize = config::cellSize;
 public:
 
-	Object() : cellPxSize(config::cellSize) {
+	Object() {
 
 #ifdef DEBUG
 		std::cout << static_cast<int>(this->cellPxSize) << "\n";
@@ -16,12 +16,9 @@ public:
 
 	}
 
-	virtual ~Object()
-	{
+	virtual ~Object(){}
 
-	}
-
-	virtual void blit() = 0;
+	virtual void blit(SDL_Surface*)  = 0;
 };
 
 

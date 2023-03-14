@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -71,8 +71,12 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>C:\VC_addons\SDL2-2.24.0\include;C:\VC_addons\SDL2_image-2.6.2\include;C:\VC_addons\SDL2_ttf-2.20.1\include;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\VC_addons\SDL2-2.24.0\lib\x64;C:\VC_addons\SDL2_image-2.6.2\lib\x64;C:\VC_addons\SDL2_ttf-2.20.1\lib\x64;$(LibraryPath)</LibraryPath>
+    <IncludePath>C:\Users\danii\OneDrive\Рабочий стол\SDL2-2.24.0\include;C:\Users\danii\OneDrive\Рабочий стол\SDL2_image-2.6.2\include;C:\Users\danii\OneDrive\Рабочий стол\SDL2_ttf-2.20.1\include;C:\VC_addons\SDL2-2.24.0\include;C:\VC_addons\SDL2_image-2.6.2\include;C:\VC_addons\SDL2_ttf-2.20.1\include;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\Users\danii\OneDrive\Рабочий стол\SDL2-2.24.0\lib\x64;C:\Users\danii\OneDrive\Рабочий стол\SDL2_image-2.6.2\lib\x64;C:\Users\danii\OneDrive\Рабочий стол\SDL2_ttf-2.20.1\lib\x64;C:\VC_addons\SDL2-2.24.0\lib\x64;C:\VC_addons\SDL2_image-2.6.2\lib\x64;C:\VC_addons\SDL2_ttf-2.20.1\lib\x64;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <IncludePath>C:\Users\danii\OneDrive\Рабочий стол\SDL2-2.24.0\include;C:\Users\danii\OneDrive\Рабочий стол\SDL2_image-2.6.2\include;C:\Users\danii\OneDrive\Рабочий стол\SDL2_ttf-2.20.1\include;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
+    <LibraryPath>C:\Users\danii\OneDrive\Рабочий стол\SDL2-2.24.0\lib\x64;C:\Users\danii\OneDrive\Рабочий стол\SDL2_image-2.6.2\lib\x64;C:\Users\danii\OneDrive\Рабочий стол\SDL2_ttf-2.20.1\lib\x64;$(VC_LibraryPath_x64);$(WindowsSDK_LibraryPath_x64)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -104,7 +108,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
-      <WarningLevel>Level3</WarningLevel>
+      <WarningLevel>Level4</WarningLevel>
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
@@ -133,30 +137,73 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Button.cpp" />
+    <ClCompile Include="aboutWin.cpp" />
+    <ClCompile Include="BotLT.cpp" />
+    <ClCompile Include="botTT.cpp" />
+    <ClCompile Include="bullet.cpp" />
     <ClCompile Include="CharacterTank.cpp" />
     <ClCompile Include="Field.cpp" />
     <ClCompile Include="Gameplay.cpp" />
     <ClCompile Include="globals.cpp" />
-    <ClCompile Include="loadingFieldResourses.cpp" />
-    <ClCompile Include="loadingImages.cpp" />
+    <ClCompile Include="LvlChoseWin.cpp" />
     <ClCompile Include="Menu.cpp" />
+    <ClCompile Include="MenuHandler.cpp" />
+    <ClCompile Include="menuMainWin.cpp" />
     <ClCompile Include="Object.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="ResultWin.cpp" />
+    <ClCompile Include="RightPanel.cpp" />
+    <ClCompile Include="StartWindow.cpp" />
+    <ClCompile Include="StatisticWin.cpp" />
     <ClCompile Include="Tanks.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="aboutWin.h" />
     <ClInclude Include="baseGameClass.h" />
-    <ClInclude Include="Button.h" />
+    <ClInclude Include="BotLT.h" />
+    <ClInclude Include="botTT.h" />
+    <ClInclude Include="bullet.h" />
     <ClInclude Include="CharacterTank.h" />
     <ClInclude Include="Field.h" />
     <ClInclude Include="Gameplay.h" />
     <ClInclude Include="globals.h" />
-    <ClInclude Include="loadingFieldResourses.h" />
-    <ClInclude Include="loadingImages.h" />
+    <ClInclude Include="LvlChoseWin.h" />
     <ClInclude Include="Menu.h" />
+    <ClInclude Include="MenuHandler.h" />
+    <ClInclude Include="menuMainWin.h" />
     <ClInclude Include="Object.h" />
+    <ClInclude Include="ResultWin.h" />
+    <ClInclude Include="RightPanel.h" />
+    <ClInclude Include="StartWindow.h" />
+    <ClInclude Include="StatisticWin.h" />
     <ClInclude Include="Tanks.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="image\field\emptyCell.png" />
+    <Image Include="image\field\hardWall.png" />
+    <Image Include="image\field\wall.png" />
+    <Image Include="image\tank\botLT\down.png" />
+    <Image Include="image\tank\botLT\left.png" />
+    <Image Include="image\tank\botLT\right.png" />
+    <Image Include="image\tank\botLT\up.png" />
+    <Image Include="image\tank\botTT\down.png" />
+    <Image Include="image\tank\botTT\left.png" />
+    <Image Include="image\tank\botTT\right.png" />
+    <Image Include="image\tank\botTT\up.png" />
+    <Image Include="image\tank\bullets\down.png" />
+    <Image Include="image\tank\bullets\left.png" />
+    <Image Include="image\tank\bullets\right.png" />
+    <Image Include="image\tank\bullets\up.png" />
+    <Image Include="image\tank\character\down.png" />
+    <Image Include="image\tank\character\left.png" />
+    <Image Include="image\tank\character\right.png" />
+    <Image Include="image\tank\character\up.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Font Include="font\courier.ttf" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="save\lvl1.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

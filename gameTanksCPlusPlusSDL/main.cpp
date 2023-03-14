@@ -4,5 +4,8 @@ int main(int argc, char* argv[]) {
 
 	Gameplay gm;
 
-	return 0;
+	gm.handlingHelloWin();
+	gm.loop();
+
+	return gm.getErrorStatus();
 }
