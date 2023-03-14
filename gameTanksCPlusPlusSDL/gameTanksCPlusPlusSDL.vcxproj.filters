@@ -105,6 +105,15 @@
     <ClCompile Include="StatisticWin.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
+    <ClCompile Include="LvlChoseWin.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="RightPanel.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="ResultWin.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="baseGameClass.h">
@@ -128,31 +137,40 @@
     <ClInclude Include="Tanks.h">
       <Filter>Файлы заголовков\objects</Filter>
     </ClInclude>
-    <ClInclude Include="botTT.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="bullet.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="BotLT.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
     <ClInclude Include="StartWindow.h">
       <Filter>Файлы заголовков\menu</Filter>
     </ClInclude>
     <ClInclude Include="Menu.h">
       <Filter>Файлы заголовков\menu</Filter>
     </ClInclude>
-    <ClInclude Include="menuMainWin.h">
-      <Filter>Файлы заголовков</Filter>
+    <ClInclude Include="BotLT.h">
+      <Filter>Файлы заголовков\objects</Filter>
+    </ClInclude>
+    <ClInclude Include="botTT.h">
+      <Filter>Файлы заголовков\objects</Filter>
+    </ClInclude>
+    <ClInclude Include="bullet.h">
+      <Filter>Файлы заголовков\objects</Filter>
     </ClInclude>
     <ClInclude Include="aboutWin.h">
-      <Filter>Файлы заголовков</Filter>
+      <Filter>Файлы заголовков\menu</Filter>
     </ClInclude>
     <ClInclude Include="MenuHandler.h">
-      <Filter>Файлы заголовков</Filter>
+      <Filter>Файлы заголовков\menu</Filter>
+    </ClInclude>
+    <ClInclude Include="menuMainWin.h">
+      <Filter>Файлы заголовков\menu</Filter>
     </ClInclude>
     <ClInclude Include="StatisticWin.h">
+      <Filter>Файлы заголовков\menu</Filter>
+    </ClInclude>
+    <ClInclude Include="LvlChoseWin.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="RightPanel.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="ResultWin.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
   </ItemGroup>

@@ -6,7 +6,7 @@ class aboutWin : public Menu
 {
 
 private:
-	std::string textAbout = "Classic Game Tanks";
+	std::string textAbout = "Classic Game Tanks Created by Nikita Komkov";
 
 public:
 	aboutWin(std::vector<SDL_Surface*>&V, TTF_Font* f) {
@@ -17,6 +17,7 @@ public:
 			{"Õ¿«¿ƒ", {config::winWidth -250, config::winHeight - 100, 200, 60}},
 		};
 		this->text = "Œ¡ »√–≈";
+		winId = AbtWin;
 	}
 
 	~aboutWin()

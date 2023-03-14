@@ -17,6 +17,7 @@ public:
 			{"Õ¿«¿ƒ", {config::winWidth - 250, config::winHeight - 100, 200, 60}},
 		};
 		this->text = "—“¿“»“—» ¿";
+		winId = StatWin;
 	}
 	~StatisticWin()
 	{

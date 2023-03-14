@@ -6,10 +6,8 @@
 #include"botTT.h"
 #include"BotLT.h"
 
-#include"StartWindow.h"
-//#include "testClass.h"
-#include "aboutWin.h"
-#include "StatisticWin.h"
+#include"MenuHandler.h"
+#include"RightPanel.h"
 
 
 
@@ -18,51 +16,36 @@ class Gameplay : private baseGameClass
 private:
 
 	Field* field= nullptr;
-	Object* startWindow = nullptr;
-	Object* testCl = nullptr;
 	CharacterTank* chTank = nullptr;
+	RightPanel* rightPanel = nullptr;
+
+	MenuHandler* menuHand = nullptr;
 
 	std::vector<Tanks*> TanksV = {};
 	std::vector<Object*> sceneObject = {};
+
 	bool game = true;
 	SDL_Event event = {};
+
+	gameStates currentGameState = gameStates::HelloWin;
 
 public:
 	Gameplay() {
 		initModuls();
 		loadResourses();
-
-		/// transmit in special function
-		field = new Field("lvl2.txt", fieldImages);
-		sceneObject.push_back(field);
-		if (!field->getMapLoadingStatus())
+		if (!errorStatus)
 		{
-			errorStatus = MAP_LOADING_ERROR;
+			deltaTime = SDL_GetTicks();
+			menuHand = new MenuHandler(menuImages, font);
+			menuHand->startingWin();
 		}
-
-		chTank = new CharacterTank(5, 5, TankCharacterImages, bulletImages);
-
-		TanksV.push_back(new botTT(23, 7, tankTTImages, bulletImages));
-		sceneObject.push_back(TanksV[0]);
-
-		TanksV.push_back(new botTT(23, 15, tankTTImages, bulletImages));
-		sceneObject.push_back(TanksV[1]);
-		
-		TanksV.push_back(new botTT(23, 11, tankTTImages, bulletImages));
-		sceneObject.push_back(TanksV[2]);
-
-		sceneObject.push_back(chTank);
-
-		
-
-		//startWindow = new StartWindow( menuImages, font);
-		//testCl = new /*testClass(menuImages, font)*//*StartWindow*/StatisticWin(menuImages, font);
-
-		game = !errorStatus ? true : false;
+		else
+		{
+			game = false;
+		}
 	}
 	~Gameplay() {
-
-		delete this->field;
+		clearPointerMemory();
 
 #ifdef DEBUG
 		std::cout << "Gameplay::deconstructor\n";
@@ -72,20 +55,50 @@ public:
 private:
 	uint32_t deltaTime = 0;
 	uint32_t moveTanksDelay = config::moveTanksDelay;
+	uint8_t botTanksCount = 0;
 
 	std::function<void(size_t)>DeleteTanks = [&](size_t index) {
 		sceneObject.erase(sceneObject.begin() + ++index);
+	};
+
+	void clearPointerMemory() {
+		if (field != nullptr) delete field;
+		if (chTank != nullptr) delete chTank;
+		if (rightPanel != nullptr) delete rightPanel;
+	}
+
+	std::function<void(std::string)>BuildGame = [&](std::string map) {
+		botTanksCount = 0;
+		TanksV.clear();
+		sceneObject.clear();
+
+		clearPointerMemory();
+
+		field = new Field(map, fieldImages);
+		if (!field->getMapLoadingStatus()) { errorStatus = MAP_LOADING_ERROR; return; }
+
+		sceneObject.push_back(field);
+
+		chTank = new CharacterTank(field->getUnitPosition()[0], TankCharacterImages, bulletImages);
+
+		for (size_t i = 1; i < field->getUnitPosition().size(); ++i)
+		{
+			TanksV.push_back(new botTT(field->getUnitPosition()[i], tankTTImages, bulletImages));
+			sceneObject.push_back(TanksV[i-1]);
+			++botTanksCount;
+		}
+		sceneObject.push_back(chTank);
+
+		rightPanel = new RightPanel(menuImages, font, botTanksCount);
+		rightPanel->setText();
+		sceneObject.push_back(rightPanel);
 	};
 
 public:
 
 	ErrorsCodes getErrorStatus() const { return errorStatus; }
 
-
-	void loop() {
-
-		deltaTime = SDL_GetTicks();
-		
+	void handlingHelloWin() {
 		while (this->game)
 		{
 			SDL_PollEvent(&event);
@@ -95,31 +108,82 @@ public:
 				this->game = false;
 				return;
 			}
-			//bool update = false;
-			//if () update = true;
-			/// tanks actions
-			chTank->bulletHandler(field->getField(), TanksV, DeleteTanks);
-			chTank->action(field->getField(), this->event);
-
-			for (auto& el : TanksV)
+			if (event.type == SDL_KEYDOWN)
 			{
-				el->bulletHandler(field->getField(), TanksV, nullptr, chTank->getPosition());
+				currentGameState = gameStates::MenuHandling; 
+				menuHand->openMenu(true);
+				return;
 			}
+			menuHand->blit(surface);
+			SDL_UpdateWindowSurface(this->win);
+			SDL_Delay(1000 / config::FPS);
+		}
+	}
 
-			if (SDL_GetTicks() - deltaTime > moveTanksDelay)
+	void loop() {
+
+		
+		while (this->game)
+		{
+			SDL_PollEvent(&event);
+
+			if (event.type == SDL_QUIT || currentGameState == Quit)
 			{
-				chTank->generateWayMap(field->getField(), TanksV);
+				this->game = false;
+				return;
+			}
+			if (currentGameState == MenuHandling)
+			{
+				menuHand->handler(event, currentGameState, BuildGame);
+				menuHand->blit(surface);
+			}
+			else if (currentGameState == Playing)
+			{
+				/// tanks actions
+				if (event.type == SDL_MOUSEBUTTONUP && event.button.button == SDL_BUTTON_LEFT)
+				{
+					int x = 0, y = 0;
+					SDL_GetMouseState(&x, &y);
+					if (rightPanel->checkButtonClick(x, y) == 0)
+					{
+						currentGameState = MenuHandling;
+						menuHand->openMenu();
+					}
+				}
+
+				if (chTank->getKillCount() == botTanksCount)
+				{
+					currentGameState = MenuHandling;
+					menuHand->openResultWin(true);
+				}
+
+				if (chTank->bulletHandler(field->getField(), TanksV, DeleteTanks)) rightPanel->setText(chTank->getKillCount());
+				chTank->action(field->getField(), this->event);
+
 				for (auto& el : TanksV)
 				{
-					el->botShotActions(chTank->getPosition(), field->getField());
-					el->NextStep(chTank->getWaveMap());
+					if (el->bulletHandler(field->getField(), TanksV, nullptr, chTank->getPosition()))
+					{
+						currentGameState = MenuHandling;
+						menuHand->openResultWin(false);
+					}	
 				}
-				deltaTime = SDL_GetTicks();
-			}
-			
-			for (auto& el : sceneObject)
-			{
-				el->blit(surface);
+
+				if (SDL_GetTicks() - deltaTime > moveTanksDelay)
+				{
+					chTank->generateWayMap(field->getField(), TanksV);
+					for (auto& el : TanksV)
+					{
+						el->botShotActions(chTank->getPosition(), field->getField());
+						el->NextStep(chTank->getWaveMap());
+					}
+					deltaTime = SDL_GetTicks();
+				}
+				
+				for (auto& el : sceneObject)
+				{
+					el->blit(surface);
+				}
 			}
 
 			SDL_UpdateWindowSurface(this->win);

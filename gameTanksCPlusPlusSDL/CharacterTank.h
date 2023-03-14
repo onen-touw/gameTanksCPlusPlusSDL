@@ -8,8 +8,8 @@ private: uint8_t killCounter = 0;
 
 public:
 
-	CharacterTank(uint8_t i, uint8_t j, std::vector<SDL_Surface*>vImg, std::vector<SDL_Surface*>bImg)
-		:Tanks(i,j, vImg, bImg){
+	CharacterTank(point position, std::vector<SDL_Surface*>vImg, std::vector<SDL_Surface*>bImg)
+		:Tanks(position, vImg, bImg){
 		vizitedElement.reserve(200);
 		toVizit.reserve(200);
 		waveAlg.resize(config::cellsHCount);
@@ -106,6 +106,7 @@ private:
 	std::vector<point> vizitedElement = {};
 	std::vector<point> toVizit = {};
 
+
 public:
 	void generateWayMap(/*point characterPos,*/  std::vector<std::vector<cell>>& V, std::vector<Tanks*>&tanks) {
 		
@@ -152,10 +153,11 @@ public:
 		} while (!toVizit.empty());
 
 		vizitedElement.clear();
-
 	}
 
 	std::vector<std::vector<int16_t>>& getWaveMap() { return this->waveAlg; }
+
+	uint8_t getKillCount() const { return killCounter; }
 
 	void action(std::vector<std::vector<cell>> &V, SDL_Event event) {
 		if (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_UP)
@@ -217,18 +219,18 @@ public:
 	}
 
 
-	virtual void bulletHandler(std::vector<std::vector<cell>>& field, std::vector<Tanks*>& tanks,
-		std::function<void(size_t)>delFoo = nullptr, point charPos = {})
+	bool bulletHandler(std::vector<std::vector<cell>>& field, std::vector<Tanks*>& tanks,
+		std::function<void(size_t)>delFoo)
 	{
 		if (isShot())
 		{
 			if (!tBullet->bulletTransmit(field))
 			{
 				removeBullet();
-
-#ifdef DEBUG
+			#ifdef DEBUG
 				std::cout << "bullet dead\n";
-#endif // DEBUG
+			#endif // DEBUG
+				return false;
 			}
 			else
 			{
@@ -244,12 +246,12 @@ public:
 						delFoo(i);
 						++killCounter;
 						removeBullet();
-
-						return;
+						return true;
 					}
 				}
 			}
 		}
+		return false;
 	}
 
 };

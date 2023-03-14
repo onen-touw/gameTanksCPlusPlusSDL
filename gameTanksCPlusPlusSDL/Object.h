@@ -18,7 +18,7 @@ public:
 
 	virtual ~Object(){}
 
-	virtual void blit(SDL_Surface*) = 0;
+	virtual void blit(SDL_Surface*)  = 0;
 };
 
 

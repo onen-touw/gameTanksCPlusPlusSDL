@@ -94,19 +94,18 @@ private:
 			{
 				errorStatus = ErrorsCodes::IMG_LOADING_ERROR;
 
-	#ifdef DEBUG
+			#ifdef DEBUG
 				std::cout << "Can't load: " << IMG_GetError() << std::endl;
+			#endif // DEBUG
 
-	#endif // DEBUG
 			}
-	#ifdef DEBUG
+		#ifdef DEBUG
 			else
 			{
 				std::cout << "picture uploaded:: #" << static_cast<uint16_t>(vPaths[i].id) << "\n";
 			}
-	#endif // DEBUG
+		#endif // DEBUG
 		}
-		return;
 	}
 
 	void destroyImg(std::vector<SDL_Surface*>&V) {
@@ -148,33 +147,37 @@ public:
 		if (SDL_Init(SDL_INIT_EVERYTHING) != 0)
 		{
 			errorStatus = ErrorsCodes::SDL_INIT_ERROR;
+			return;
 		}
 		int flags = IMG_INIT_PNG;
 		if (!(IMG_Init(flags) & flags)) {
 			errorStatus = ErrorsCodes::SDL_IMAGE_INIT_ERROR;
+			return;
 		}
 
 		if (TTF_Init() != 0)
 		{
 			errorStatus = ErrorsCodes::SDL_TTF_INIT_ERROR;
+			return;
 		}
 		
 		win = SDL_CreateWindow(config::winTitle, 100, 100,
 			config::winWidth, config::winHeight, SDL_WINDOW_SHOWN);
 		if (win == NULL) {
 			errorStatus = ErrorsCodes::SDL_WIN_CREATE_ERROR;
+			return;
 		}
 
 		surface = SDL_GetWindowSurface(win);
 		if (surface == nullptr)
 		{
 			errorStatus = ErrorsCodes::SDL_TARGET_SURFACE_CREATE_ERROR;
+			return;
 		}
-		return;
 	}
 	
 	void loadResourses() {
-
+		if (errorStatus) return;
 		loadImages(fieldImagesPathVector, fieldImages);
 		loadImages(bulletImagesPathVector, bulletImages);
 		loadImages(TankTTImagesPathVector, tankTTImages);
@@ -186,6 +189,7 @@ public:
 		if (font == NULL)
 		{
 			errorStatus = ErrorsCodes::FONT_OPEN_ERROR;
+			return;
 		}
 
 	}

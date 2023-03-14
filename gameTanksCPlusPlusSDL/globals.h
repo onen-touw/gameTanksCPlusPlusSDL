@@ -18,6 +18,15 @@ enum direction : uint8_t
 	RIGHT
 };
 
+enum gameStates : uint8_t
+{
+	HelloWin,
+	MenuHandling,
+	Playing,
+	GameResalt,
+	Quit
+};
+
 enum cellObjects: uint8_t
 {
 	Empty, Wall, Wall66Perc, Wall33Perc, HardWall,
@@ -53,12 +62,6 @@ struct cell
 
 };
 
-struct bulletStruct
-{
-	uint16_t x = 0;
-	uint16_t y = 0;
-	direction direct;
-};
 
 struct imagePath
 {
@@ -76,6 +79,11 @@ struct btnsStruct
 {
 	std::string text = "";
 	SDL_Rect rect = { 0,0,200, 60 };		/// default sizes for btns
+	uint8_t id = 0;
+	bool click(int32_t mouseX, int32_t mouseY) {
+		return (mouseX >= rect.x && mouseX <= rect.x + rect.w
+			&& mouseY >= rect.y && mouseY <= rect.y + rect.h);
+	}
 };
 
 
@@ -83,30 +91,30 @@ class config
 {
 public:
 
-	static constexpr uint8_t cellSize = 30;											///px
-	static constexpr uint8_t cellsWCount = 40;										///cells
-	static constexpr uint8_t cellsHCount = 25;										///cells
-	static constexpr uint8_t rightBlockW = 200;										///px
+	static constexpr uint8_t cellSize = 30u;											///px
+	static constexpr uint8_t cellsWCount = 40u;											///cells
+	static constexpr uint8_t cellsHCount = 25u;											///cells
+	static constexpr uint8_t rightBlockW = 200u;										///px
 
-	static constexpr uint16_t winHeight = cellsHCount * cellSize;					///px
-	static constexpr uint16_t winWidth = cellsWCount * cellSize + rightBlockW;		///px
+	static constexpr uint16_t winHeight = cellsHCount * cellSize;						///px
+	static constexpr uint16_t winWidth = cellsWCount * cellSize + rightBlockW;			///px
 
-	static constexpr uint8_t bulletSpeed = 20;										///px
+	static constexpr uint8_t bulletSpeed = 20u;											///px
 
-	static constexpr uint32_t moveTanksDelay = 400;									///milliseconds
+	static constexpr uint32_t moveTanksDelay = 400u;									///milliseconds
 
-	static constexpr uint8_t bulletMaxFlyDistance = 10;								///cells
+	static constexpr uint8_t bulletMaxFlyDistance = 10u;								///cells
 
 	///if distance on the waveMap is less than this param than 
 	///bot starts moving to the target
-	static constexpr uint8_t detectionByLenthOfWay = 25;							///cells on waveMap
+	static constexpr uint8_t detectionByLenthOfWay = 25u;								///cells on waveMap
 
 	///if distance on the waveMap is greater than this param than 
 	///bot can move to the target
-	static constexpr uint8_t minimalTargetDistanse = 1;								///cells on waveMap
+	static constexpr uint8_t minimalTargetDistanse = 0u;								///cells on waveMap
 
-	static constexpr uint8_t FPS = 60;												///px
+	static constexpr uint8_t FPS = 60u;													///px
 	
-	static constexpr const char* winTitle = "TanksGame";							///windowName
+	static constexpr const char* winTitle = "TanksGame";								///windowName
 
 };

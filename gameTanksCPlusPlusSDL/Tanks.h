@@ -22,13 +22,12 @@ protected:
 
 	uint8_t detectionByLenthOfWay = config::detectionByLenthOfWay;
 	uint8_t minimalTargetDistanse = config::minimalTargetDistanse;
-
 	bool ableToShot = false;
 
 
 public:
-	Tanks(uint8_t posInFldI, uint8_t posInFldJ , std::vector<SDL_Surface*>vImg, std::vector<SDL_Surface*>bulletImages)
-		: posInFldI(posInFldI), posInFldJ(posInFldJ), images(vImg), bulletImages(bulletImages){
+	Tanks(point position , std::vector<SDL_Surface*>vImg, std::vector<SDL_Surface*>bulletImages)
+		: posInFldI(position.i), posInFldJ(position.j), images(vImg), bulletImages(bulletImages){
 	
 	}
 
@@ -40,8 +39,8 @@ public:
 	}
 
 private:
-	int8_t distanse(point p1) {
-		return fabs(p1.i - posInFldI) + fabs(p1.j - posInFldJ);
+	int8_t distanse(point p1) const {
+		return abs(p1.i - posInFldI) + abs(p1.j - posInFldJ);
 	}
 
 
@@ -108,7 +107,7 @@ public:
 	}
 
 	/// with checking for walls and checking for tanks
-	virtual void bulletHandler(std::vector<std::vector<cell>>& field, std::vector<Tanks*>& tanks, 
+	bool bulletHandler(std::vector<std::vector<cell>>& field, std::vector<Tanks*>& tanks, 
 		 std::function<void(size_t)>delFoo = nullptr, point charPos = {})
 	{
 		if (isShot())
@@ -116,10 +115,10 @@ public:
 			if (!tBullet->bulletTransmit(field)) 
 			{
 				removeBullet();
-
 			#ifdef DEBUG
 				std::cout << "bullet dead\n";
 			#endif // DEBUG
+				return false;
 			} 
 			else
 			{
@@ -129,21 +128,22 @@ public:
 				{
 					std::cout << "bot hits char \n";
 					removeBullet();
-					return;
+					return true;
 				}
 				for (size_t i = 0; i < tanks.size(); ++i)
 				{
 					if (tanks[i]->getPosition() == bulletTmpPos)
 					{
 						removeBullet();
-						return;
+						return false;
 					}
 				}
 			}
 		}
+		return false;
 	}
 
-//protected:
+protected:
 	void doShot(std::vector<std::vector<cell>>& field)
 	{
 		if (!isShot())
@@ -151,13 +151,13 @@ public:
 			tBullet = new bullet(dirct, posInFldJ * cellPxSize, posInFldI * cellPxSize);
 			tBullet->setDeathPoint(field, posInFldI, posInFldJ);
 
-			//currentTime = SDL_GetTicks();
 		#ifdef DEBUG
 					std::cout << "bullet is flying\n";
 		#endif // DEBUG
 		}
 	}
 
+public:
 	void botShotActions(point characterPos, std::vector<std::vector<cell>>&field) {
 		if (distanse(characterPos) > config::bulletMaxFlyDistance)
 		{

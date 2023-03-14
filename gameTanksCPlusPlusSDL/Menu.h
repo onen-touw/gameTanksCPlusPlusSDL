@@ -4,8 +4,20 @@
 #include"Object.h"
 
 
-class Menu:public Object
+class Menu :public Object
 {
+
+public:
+	enum menuId :uint8_t
+	{
+		unknown,
+		MainWin,
+		StatWin,
+		AbtWin,
+		lvlChoseWin,
+		ResultGameWin
+	};
+
 
 protected:
 	std::vector<btnsStruct> btns = {};
@@ -15,26 +27,12 @@ protected:
 
 	std::string text = "";
 
-	SDL_Color color = { 0,0, 0 };
+	SDL_Color color = { 0, 0, 0 };
 
 	SDL_Rect menuRect = { 0, 0, config::winWidth, config::winHeight };
 
+	menuId winId = unknown;
 
-protected:
-	int8_t checkButtonClick(int x, int y) {
-		if (!this->btns.empty())
-		{
-			for (size_t i = 0; i < this->btns.size(); ++i)
-			{
-				if (x >= this->btns[i].rect.x && x <= this->btns[i].rect.x + this->btns[i].rect.w
-					&& y >= this->btns[i].rect.y && y <= this->btns[i].rect.y + this->btns[i].rect.h)
-				{
-					return i;
-				}
-			}
-		}
-		return -1;
-	}
 
 public:
 	Menu(){
@@ -47,6 +45,22 @@ public:
 	#endif // DEBUG
 	}
 
+	int8_t checkButtonClick(int x, int y) {
+		if (!this->btns.empty())
+		{
+			for (size_t i = 0; i < this->btns.size(); ++i)
+			{
+				if (btns[i].click(x,y))
+				{
+					return btns[i].id;
+				}
+			}
+		}
+		return -1;
+	}
+
+	menuId getWinId() const { return winId; }
+
 
 	void blitBtn(SDL_Surface* surface) {
 		if (!btns.empty())
@@ -55,17 +69,17 @@ public:
 			for (auto& el : btns)
 			{
 				tmp = el;
-				tmp.rect.x = tmp.rect.x - tmp.rect.w / 2;
-				tmp.rect.y = tmp.rect.y - tmp.rect.h / 2;
-				SDL_BlitScaled(btBg, NULL, surface, &tmp.rect);
-				blitTxtRect(surface, el.text, el.rect);
+				tmp.rect.x = tmp.rect.x + tmp.rect.w / 2;	
+				tmp.rect.y = tmp.rect.y + tmp.rect.h / 2;
+				SDL_BlitScaled(btBg, NULL, surface, &el.rect);
+				blitTxtRect(surface, el.text, tmp.rect);
 			}
 		}
 	}
 
-	virtual void btnHandler() = 0;
-	
 	void blitTxtRect(SDL_Surface* surface, std::string txt, SDL_Rect rect) {
+		if (txt.empty()) return;
+		
 		rect.x = rect.x - rect.w/2;
 		rect.y = rect.y - rect.h/2;
 		SDL_Surface* tempSurf = TTF_RenderText_Solid(this->font, txt.c_str(), color);
@@ -75,12 +89,6 @@ public:
 		SDL_FreeSurface(tempSurf);
 	}
 
-	//void blitBtns() {
-	//	
-	//}
-
-	
-
-	virtual void blit(SDL_Surface*) override {};
+	virtual void blit(SDL_Surface*) = 0;
 
 };
